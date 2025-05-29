@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Student Requests</title>
+  <link rel="stylesheet" href="{% static 'styles/admin.css' %}">
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="{% url 'add_subject' %}">Add Subject</a></li>
+    <li><a href="{% url 'admin_page' %}">See Requests</a></li>
+  </ul>
+</nav>
+
+<h2>Student Requests</h2>
+<table>
+  <tr>
+    <th>Student Name</th>
+    <th>Phone Number</th>
+    <th>Subjects</th>
+    <th>Attachment</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  {% for request in requests %}
+  <tr>
+    <td>{{ request.student_name }}</td>
+    <td>{{ request.phone_number }}</td>
+    <td>
+      {% for subject in request.subject.all %}
+        {{ subject.name }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </td>
+    <td>
+      {% if request.attachment %}
+        <a href="{{ request.attachment.url }}" target="_blank">View Attachment</a>
+      {% else %}
+        No Attachment
+      {% endif %}
+    </td>
+    <td>{{ request.status }}</td>
+    <td>
+      {% if request.status == 'Pending' %}
+      <form method="POST" style="display:inline;">
+        {% csrf_token %}
+        <input type="hidden" name="request_id" value="{{ request.id }}">
+        <button type="submit" name="action" value="approve">Approve</button>
+      </form>
+      <form method="POST" style="display:inline;">
+        {% csrf_token %}
+        <input type="hidden" name="request_id" value="{{ request.id }}">
+        <button type="submit" name="action" value="reject">Reject</button>
+      </form>
+      {% else %}
+      {{ request.status }}
+      {% endif %}
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6">No requests found</td></tr>
+  {% endfor %}
+</table>
+
+<form action="{% url 'logout' %}" method="POST">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>
+
+</body>
+</html>
