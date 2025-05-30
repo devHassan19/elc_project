@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, get_object_or_404
 from .forms import StudentRequestForm , SubjectForm
 from .models import StudentRequest, Subject
-
+from django.contrib import messages
 
 
 def register_view(request):
@@ -47,23 +47,39 @@ def login_view(request):
     return render(request, 'accounts/login.html')
 
 
+# def student_page(request):
+#     message = ''
+#     if request.method == 'POST':
+#         form = StudentRequestForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()  
+#             message = 'Request submitted successfully!'
+#             return redirect('student_page')  
+#     else:
+#         form = StudentRequestForm()
+
+#     return render(request, 'accounts/student_page.html', {
+#         'form': form,
+#         'message': message,
+      
+#     })
+    
+
+
 def student_page(request):
     if request.method == 'POST':
         form = StudentRequestForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()  
+            messages.success(request, 'Request submitted successfully!')  # Use messages framework
             return redirect('student_page')  
     else:
         form = StudentRequestForm()
 
-    return render(request, 'accounts/student_page.html', {'form': form})
-
     return render(request, 'accounts/student_page.html', {
         'form': form,
-        'message': message,
-      
     })
-    
+
 
 def add_subject(request):
     if request.method == 'POST':

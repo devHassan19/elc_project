@@ -15,8 +15,12 @@
   <button type="submit">Submit</button>
 </form>
 
-{% if message %}
-<p class="message">{{ message }}</p>
+{% if messages %}
+  <div class="message">
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  </div>
 {% endif %}
 
 </body>
