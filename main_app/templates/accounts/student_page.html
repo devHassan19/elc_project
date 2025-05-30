@@ -6,6 +6,14 @@
   <link rel="stylesheet" href="{% static 'styles/student.css' %}">
 </head>
 <body>
+  <header>
+    <nav>
+      <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
+      <ul>
+        <li><a href="{% url 'login' %}">Log in</a></li>
+      </ul>
+    </nav>
+  </header>
 
 <h2>Submit Student Request</h2>
 
