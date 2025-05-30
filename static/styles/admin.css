@@ -41,6 +41,66 @@ nav ul li a:hover {
   border-radius: 5px;
 }
 
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+@media (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  th {
+    display: none; /* Hide headers on small screens */
+  }
+
+  tr {
+    margin-bottom: 15px;
+  }
+
+  td {
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td::before {
+    content: attr(data-label); /* Use data-label for responsive display */
+    position: absolute;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 600px) {
   nav {
     flex-direction: column;
