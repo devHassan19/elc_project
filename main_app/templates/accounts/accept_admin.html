@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Admin Student Requests</title>
-  <link rel="stylesheet" href="{% static 'styles/admin.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/accept_admin.css' %}">
 </head>
 <body>
   <header>
@@ -23,24 +23,23 @@
     </nav>
   </header>
 
-<h2>Student Requests</h2>
+<h2>Accept Student Requests</h2>
 
 <table>
   <thead>
     <tr>
-      <th>#</th> <!-- Added ID column -->
+      <th>#</th>
       <th>Student Name</th>
       <th>Phone Number</th>
       <th>Subjects</th>
       <th>Attachment</th>
       <th>Status</th>
-      <th>Action</th>
     </tr>
   </thead>
   <tbody>
     {% for request in requests %}
     <tr>
-      <td>{{ forloop.counter }}</td> <!-- Display the row number -->
+      <td>{{ forloop.counter }}</td>
       <td>{{ request.student_name }}</td>
       <td>{{ request.phone_number }}</td>
       <td>
@@ -56,30 +55,11 @@
         {% endif %}
       </td>
       <td>{{ request.status }}</td>
-      <td>
-        {% if request.status == 'Pending' %}
-        <form method="POST" style="display:inline;">
-          {% csrf_token %}
-          <input type="hidden" name="request_id" value="{{ request.id }}">
-          <button type="submit" name="action" value="approve">Approve</button>
-        </form>
-        <form method="POST" style="display:inline;">
-          {% csrf_token %}
-          <input type="hidden" name="request_id" value="{{ request.id }}">
-          <button type="submit" name="action" value="reject">Reject</button>
-        </form>
-        {% else %}
-        {{ request.status }}
-        {% endif %}
-      </td>
     </tr>
     {% empty %}
-    <tr><td colspan="7">No requests found</td></tr>
+    <tr><td colspan="6">No approved requests found</td></tr>
     {% endfor %}
   </tbody>
 </table>
-<blockquote>Responsive Table</blockquote>
-
-
 </body>
 </html>

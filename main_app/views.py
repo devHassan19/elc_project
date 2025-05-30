@@ -47,24 +47,6 @@ def login_view(request):
     return render(request, 'accounts/login.html')
 
 
-# def student_page(request):
-#     message = ''
-#     if request.method == 'POST':
-#         form = StudentRequestForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()  
-#             message = 'Request submitted successfully!'
-#             return redirect('student_page')  
-#     else:
-#         form = StudentRequestForm()
-
-#     return render(request, 'accounts/student_page.html', {
-#         'form': form,
-#         'message': message,
-      
-#     })
-    
-
 
 def student_page(request):
     if request.method == 'POST':
@@ -102,6 +84,10 @@ def submit_request(request):
         form = StudentRequestForm()
     
     return render(request, 'accounts/submit_request.html', {'form': form})
+
+def accept_admin(request):
+    accepted_requests = StudentRequest.objects.filter(status='Approved')  # Ensure status matches 'Approved'
+    return render(request, 'accounts/accept_admin.html', {'requests': accepted_requests})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)

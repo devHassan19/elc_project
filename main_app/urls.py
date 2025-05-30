@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import login_view, student_page, admin_page , register_view , logout_view, add_subject
+from .views import login_view, student_page, admin_page , register_view , logout_view, add_subject, accept_admin
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -10,6 +10,7 @@ urlpatterns = [
     path('add-subject/', add_subject, name='add_subject'),
     path('register/',   register_view, name='register'),
     path('logout/', logout_view, name='logout'),
+    path('accepted-requests/', accept_admin, name='accept_admin'),
 ]
 
 if settings.DEBUG:
