@@ -1,6 +1,7 @@
 header {
   background-color: #edb82d;
   padding: 20px 40px;
+  margin-bottom: 20px;
 }
 
 nav {
@@ -42,13 +43,121 @@ nav ul li a:hover {
 }
 
 /* -------------------------------------------------------------- */
-
-.your-css-class {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
 }
 
-.your-css-class::placeholder {
-  color: #aaa;  /* Placeholder color */
+body {
+  font-family: poppins, arial, sans-serif;
+  background-color: whitesmoke;
+}
+
+.modal {
+  width: 96%;
+  max-width: 1000px;
+  height: auto;
+  position: relative;
+  margin: auto;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, .3);
+}
+
+.modal-info {
+  width: 100%;
+  height: auto;
+  margin: 20px 0; /* Add vertical spacing */
+}
+
+.info {
+  width: 90%;
+  margin: auto;
+}
+
+h2 {
+  font-size: 2.25rem;
+  margin-left: 1rem;
+}
+
+.form-list {
+  margin-top: 1.5rem;
+}
+
+.form-list-row {
+  margin: 1rem 0;
+}
+
+label {
+  font-size: 1rem;
+}
+
+input {
+  width: 70%;
+  font-size: 1rem;
+  padding: .4rem 0;
+  border: none;
+  display: inline-block;
+  border-bottom: solid 2px #999;
+  background-color: transparent;
+  transition: all .3s ease;
+}
+
+input:focus {
+  border-color: #cdb196;
+}
+
+button {
+  color: white;
+  font-size: 1rem;
+  margin-left: 1rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 3px;
+  background-color: #cdb196;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  transition: all .3s ease;
+}
+
+button:hover {
+  background-color: #b59779;
+}
+
+.subject-content {
+  display: flex;
+  align-items: center; /* Vertically center items */
+}
+
+.subject-details {
+  margin-left: 10px; /* Space between image and text */
+  font-size: 1.2rem; /* Increase font size */
+}
+
+.subject-image {
+  width: 100px; /* Fixed width */
+  height: 100px; /* Fixed height */
+  object-fit: cover; /* Maintain aspect ratio */
+  max-width: none; /* Prevent responsive resizing */
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0; /* Add spacing above and below the form */
+}
+
+.input-section {
+  width: 48%; /* Adjust width as needed */
+}
+
+.subject-section {
+  width: 48%; /* Adjust width as needed */
+  padding-left: 20px; /* Space between sections */
+  max-height: 380px; /* Set a fixed height for the scrollbar */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
