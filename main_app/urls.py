@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import login_view, student_page, admin_page , register_view , logout_view, add_subject, accept_admin
+from .views import login_view, student_page, admin_page , register_view , logout_view, add_subject, accept_admin, add_category
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -7,6 +7,7 @@ urlpatterns = [
     # path('', login_view, name='login'),
     path('', student_page, name='student_page'),
     path('admin-page/', admin_page, name='admin_page'),
+    path('add-category/', add_category, name='add_category'),
     path('add-subject/', add_subject, name='add_subject'),
     path('register/',   register_view, name='register'),
     path('logout/', logout_view, name='logout'),

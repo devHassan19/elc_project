@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Category</title>
+  <link rel="stylesheet" href="{% static 'styles/admin.css' %}">
+</head>
+<body>
+  <header>
+    <nav>
+      <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
+      <ul>
+        <li><a href="{% url 'add_category' %}">اضافة categories</a></li>
+        <li><a href="{% url 'add_subject' %}">اضافة مادة</a></li>
+        <li><a href="{% url 'accept_admin' %}">طلبات التاجيل</a></li>
+        <li><a href="{% url 'admin_page' %}">الرئيسية</a></li>
+        <li>
+          <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Add New Category</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+          <label for="id_name">Category Name:</label>
+          <input type="text" name="name" id="id_name" value="{{ form.name.value }}" class="your-css-class" placeholder="Enter category name" required>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+
+    <a href="{% url 'admin_page' %}" class="back-link">Back to Admin Page</a>
+  </main>
+
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

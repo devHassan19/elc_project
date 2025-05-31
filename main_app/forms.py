@@ -1,5 +1,5 @@
 from django import forms
-from .models import StudentRequest, Subject  # Import both models
+from .models import StudentRequest, Subject, Category  # Import both models
 
 class StudentRequestForm(forms.ModelForm):
     class Meta:
@@ -32,3 +32,8 @@ class SubjectForm(forms.ModelForm):
     price = forms.DecimalField(required=True, max_digits=10, decimal_places=2)  
     advance_payment = forms.DecimalField(required=True, max_digits=10, decimal_places=2) 
     image = forms.ImageField(required=True)
+    
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name']  # Include the name field

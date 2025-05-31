@@ -96,7 +96,39 @@ th, td {
 }
 
 
+/* ------------------------------------- */
 
+.form-group {
+  margin-bottom: 15px; /* Space between form groups */
+}
+
+input.your-css-class {
+  width: 80%; /* Set a smaller width */
+  max-width: 400px; /* Limit maximum width */
+  padding: 8px; /* Adjust padding for a smaller feel */
+  border: 1px solid #ccc; /* Border style */
+  border-radius: 4px; /* Rounded corners */
+  margin: 5px 0; /* Space between fields */
+}
+
+button {
+  padding: 10px 15px; /* Adjust button padding */
+  background-color: #cdb196; /* Button color */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+button:hover {
+  background-color: #b59779; /* Darker button color on hover */
+}
+
+.back-link {
+  display: inline-block; /* Block for display */
+  margin-top: 20px; /* Space above */
+  color: #007bff; /* Link color */
+}
 
 
 

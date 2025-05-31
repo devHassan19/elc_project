@@ -59,10 +59,17 @@
                 </li>
               </ul>
             </div>
-
+  
+            <!-- Search Bar Section Moved Above Subjects -->
+        
             <div class="subject-section">
               <h4>Subjects:</h4>
-              <div class="product-slideshow">
+              <div class="subject-search">
+                <label for="subject_search">Search Subjects:</label>
+                <input type="text" id="subject_search" placeholder="Search by name..." onkeyup="filterSubjects()">
+              </div>
+    
+              <div class="product-slideshow" id="subject_list">
                 {% for subject in subjects %}
                   <div class="subject-item">
                     <input type="checkbox" name="subject" id="id_subject_{{ subject.id }}" value="{{ subject.id }}">
@@ -83,20 +90,41 @@
               </div>
             </div>
           </div>
+          
           <button type="submit">Submit</button>
         </form>
       </div>
     </div>
   </div>
+  
+  <script>
+    function filterSubjects() {
+      const input = document.getElementById('subject_search');
+      const filter = input.value.toLowerCase();
+      const subjectList = document.getElementById('subject_list');
+      const subjects = subjectList.getElementsByClassName('subject-item');
+  
+      for (let i = 0; i < subjects.length; i++) {
+        const subjectName = subjects[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+        if (subjectName.includes(filter)) {
+          subjects[i].style.display = ''; // Show matched subject
+        } else {
+          subjects[i].style.display = 'none'; // Hide unmatched subject
+        }
+      }
+    }
+  </script>
+
 
   {% if messages %}
-    <div class="message">
+  <div class="message-window">
+    <div class="message-content">
       {% for message in messages %}
         <p>{{ message }}</p>
       {% endfor %}
     </div>
-  {% endif %}
-
-  <script src="{% static 'js/script.js' %}"></script>
+    <button class="close-message" onclick="this.parentElement.style.display='none'">✖ Close</button>
+  </div>
+{% endif %}
 </body>
 </html>

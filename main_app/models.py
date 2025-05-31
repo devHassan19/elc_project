@@ -1,22 +1,30 @@
 from django.db import models
 from django.utils import timezone
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 class Subject(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='subject_images/')
     description = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(default=timezone.now)  # Set default value here
+    created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    advance_payment = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # New field for advance payment
+    advance_payment = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)  # Link to Category
 
     def __str__(self):
         return self.name
+
 class StudentRequest(models.Model):
     student_name = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=15, null=True)  # Allow null values if needed
-    email = models.EmailField(max_length=255, null=True)  # Allow null values if needed
-    univ_id = models.CharField(max_length=20, null=True)  # Allow null values
+    phone_number = models.CharField(max_length=15, null=True)
+    email = models.EmailField(max_length=255, null=True)
+    univ_id = models.CharField(max_length=20, null=True)
     subject = models.ManyToManyField(Subject)
     attachment = models.FileField(upload_to='attachments/', blank=True, null=True)
     status = models.CharField(max_length=10, default='Pending')

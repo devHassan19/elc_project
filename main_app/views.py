@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, get_object_or_404
-from .forms import StudentRequestForm , SubjectForm
-from .models import StudentRequest, Subject
+from .forms import StudentRequestForm , SubjectForm, CategoryForm
+from .models import StudentRequest, Subject, Category
 from django.contrib import messages
 
 
@@ -28,7 +28,6 @@ def register_view(request):
         
     return render(request, 'accounts/register.html', {'form': form})
             
-
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -45,25 +44,6 @@ def login_view(request):
         else:
             return render(request, 'accounts/login.html', {'error': 'Invalid credentials'})
     return render(request, 'accounts/login.html')
-
-
-
-# def student_page(request):
-#     subjects = Subject.objects.all()  # Fetch all subjects
-
-#     if request.method == 'POST':
-#         form = StudentRequestForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Request submitted successfully!')  # Use messages framework
-#             return redirect('student_page')
-#     else:
-#         form = StudentRequestForm()
-
-#     return render(request, 'accounts/student_page.html', {
-#         'form': form,
-#         'subjects': subjects,  # Pass subjects to the template
-#     })
 
 def student_page(request):
     subjects = Subject.objects.all()  # Fetch all subjects
@@ -82,17 +62,35 @@ def student_page(request):
         'subjects': subjects,
     })
 
+def add_category(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the new category
+            return redirect('admin_page')  # Redirect after saving
+    else:
+        form = CategoryForm()
+
+    return render(request, 'accounts/add_category.html', {'form': form})
 
 def add_subject(request):
+    categories = Category.objects.all()  # Fetch all categories
+
     if request.method == 'POST':
-        form = SubjectForm(request.POST, request.FILES)  # Include request.FILES for image uploads
+        form = SubjectForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()  # Save the subject with the uploaded image
+            subject = form.save(commit=False)  # Create subject instance but don’t save yet
+            
+            # Get the category by ID and assign it to the subject
+            category_id = request.POST.get('category')
+            subject.category = get_object_or_404(Category, id=category_id)  # Fetch the category instance
+            
+            subject.save()  # Now save the subject
             return redirect('admin_page')  # Redirect after saving
     else:
         form = SubjectForm()
-    
-    return render(request, 'accounts/add_subject.html', {'form': form})
+
+    return render(request, 'accounts/add_subject.html', {'form': form, 'categories': categories})
 
 def submit_request(request):
     if request.method == 'POST':

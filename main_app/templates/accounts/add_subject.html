@@ -4,12 +4,14 @@
 <head>
   <title>Add Subject</title>
   <link rel="stylesheet" href="{% static 'styles/admin.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/student.css' %}"> <!-- Include the same CSS -->
 </head>
 <body>
   <header>
     <nav>
       <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
       <ul>
+        <li><a href="{% url 'add_category' %}">اضافة categories</a></li>
         <li><a href="{% url 'add_subject' %}">اضافة مادة</a></li>
         <li><a href="{% url 'accept_admin' %}">طلبات التاجيل</a></li>
         <li><a href="{% url 'admin_page' %}">الرئيسية</a></li>
@@ -23,46 +25,47 @@
     </nav>
   </header>
 
-<h2>Add New Subject</h2>
-{% comment %} <form method="POST" enctype="multipart/form-data">  <!-- Ensure enctype is set -->
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Add Subject</button>
-</form> {% endcomment %}
+  <main>
+    <h2>Add New Subject</h2>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="form-group">
+          <label for="id_name">Subject Name:</label>
+          <input type="text" name="name" id="id_name" value="{{ form.name.value }}" class="your-css-class" placeholder="Enter subject name" required>
+      </div>
+      
+      <div class="form-group">
+          <label for="id_price">Full Price:</label>
+          <input type="number" name="price" id="id_price" step="0.01" value="{{ form.price.value }}" class="your-css-class" placeholder="Enter full price" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="id_advance_payment">Advance Payment:</label>
+        <input type="number" name="advance_payment" id="id_advance_payment" step="0.01" value="{{ form.advance_payment.value }}" class="your-css-class" placeholder="Enter advance payment" required>
+      </div>
 
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  
-  <div class="form-group">
-      <label for="id_name">Subject Name:</label>
-      <input type="text" name="name" id="id_name" value="{{ form.name.value }}" class="your-css-class">
-  </div>
-  
-  <div class="form-group">
-      <label for="id_price">Full Price:</label>
-      <input type="number" name="price" id="id_price" step="0.01" value="{{ form.price.value }}" class="your-css-class">
-  </div>
-  
-  <div class="form-group">
-    <label for="id_advance_payment">Advance Payment:</label>
-    <input type="number" name="advance_payment" id="id_advance_payment" step="0.01" value="{{ form.advance_payment.value }}" class="your-css-class">
-  </div>
-  
-  <div class="form-group">
-      <label for="id_image">Image:</label>
-      <input type="file" name="image" id="id_image" class="your-css-class">
-  </div>
+      <div class="form-group">
+          <label for="id_category">Category:</label>
+          <select name="category" id="id_category" class="your-css-class" required>
+              <option value="" disabled selected>Select a category</option>
+              {% for category in categories %}
+                  <option value="{{ category.id }}">{{ category.name }}</option>
+              {% endfor %}
+          </select>
+      </div>
+      
+      <div class="form-group">
+          <label for="id_image">Image:</label>
+          <input type="file" name="image" id="id_image" class="your-css-class" required>
+      </div>
 
-  
-  
-  <button type="submit">Submit</button>
-  {% comment %} <div class="form-group">
-      <label for="id_description">Description:</label>
-      <textarea name="description" id="id_description" class="your-css-class">{{ form.description.value }}</textarea>
-  </div> {% endcomment %}
-</form>
+      <button type="submit">Submit</button>
+    </form>
 
-<a href="{% url 'admin_page' %}">Back to Admin Page</a>
+    <a href="{% url 'admin_page' %}" class="back-link">Back to Admin Page</a>
+  </main>
 
+  <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

@@ -158,6 +158,65 @@ button:hover {
 .subject-section {
   width: 48%; /* Adjust width as needed */
   padding-left: 20px; /* Space between sections */
-  max-height: 380px; /* Set a fixed height for the scrollbar */
+  max-height: 200px; /* Set a fixed height for the scrollbar */
   overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.message-window {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  z-index: 1000;
+  padding: 15px;
+}
+
+.message-content {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.close-message {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.message-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the window */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 400px; /* Set width */
+  max-width: 90%; /* Responsive max width */
+  z-index: 1000;
+  padding: 20px; /* Increased padding */
+  text-align: center; /* Center text */
+}
+
+.message-content {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1em; /* Increased font size */
+}
+
+.close-message {
+  background-color: #53ff4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 15px; /* Increased button size */
+  font-size: 1em; /* Font size for button */
 }
