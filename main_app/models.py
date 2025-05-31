@@ -8,10 +8,10 @@ class Subject(models.Model):
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)  # Set default value here
     updated_at = models.DateTimeField(auto_now=True)
+    advance_payment = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # New field for advance payment
 
     def __str__(self):
         return self.name
-
 class StudentRequest(models.Model):
     student_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=15, null=True)  # Allow null values if needed

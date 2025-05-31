@@ -26,4 +26,9 @@ class StudentRequestForm(forms.ModelForm):
 class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject
-        fields = ['name', 'price', 'image']  # Include all subject fields
+        fields = ['name', 'price', 'advance_payment', 'image'] 
+        
+    name = forms.CharField(required=True)
+    price = forms.DecimalField(required=True, max_digits=10, decimal_places=2)  
+    advance_payment = forms.DecimalField(required=True, max_digits=10, decimal_places=2) 
+    image = forms.ImageField(required=True)
