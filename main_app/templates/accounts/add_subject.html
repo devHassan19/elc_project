@@ -9,10 +9,12 @@
 <body>
   <header>
     <nav>
-      <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
+      <a href="{% url 'admin_page' %}"> 
+        <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
+    </a>
       <ul>
-        <li><a href="{% url 'add_category' %}">اضافة categories</a></li>
-        <li><a href="{% url 'add_subject' %}">اضافة مادة</a></li>
+        <li><a href="{% url 'add_category' %}">اضافة فئة</a></li>
+        <li><a href="{% url 'add_subject' %}">ادارة الدورات</a></li>
         <li><a href="{% url 'accept_admin' %}">طلبات التاجيل</a></li>
         <li><a href="{% url 'admin_page' %}">الرئيسية</a></li>
         <li>
@@ -64,6 +66,19 @@
     </form>
 
   <h2>All Subjects</h2>
+  <div class="search-bar">
+    <form method="GET" action="{% url 'add_subject' %}"> <!-- Adjust the URL as needed -->
+        {% csrf_token %}
+        <select name="category">
+            <option value="">Select Category</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Search</button>
+    </form>
+  </div>
+  
   <div class="subject-list">
     {% for subject in subjects %}
         <div class="subject-item">
@@ -89,5 +104,8 @@
         return confirm('Are you sure you want to delete this subject?');
     }
 </script>
+
+
+
 </body>
 </html>

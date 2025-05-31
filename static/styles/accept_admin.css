@@ -65,6 +65,35 @@ th, td {
   border: 1px solid #ddd;
 }
 
+button {
+  padding: 10px 15px; /* Adjust button padding */
+  background-color: #cdb196; /* Button color */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+button:hover {
+  background-color: #b59779; /* Darker button color on hover */
+}
+#update-payment-btn {
+  display: block; /* Change display to block for alignment */
+  margin-left: auto; /* Auto margin on the left */
+  margin-right: 0; /* No right margin */
+  padding: 10px 20px; /* Add padding for better appearance */
+  background-color: #cdb196; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+#update-payment-btn:hover {
+  background-color: #b59779; /* Darker shade on hover */
+}
+
 @media (max-width: 600px) {
   table, thead, tbody, th, td, tr {
     display: block;
@@ -96,19 +125,6 @@ th, td {
 }
 
 
-
-@media (max-width: 600px) {
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  nav ul {
-    flex-direction: column;
-    gap: 15px;
-  }
-}
-
 /* ------------------------------------------------------------ */
 
 .search-bar {
@@ -122,10 +138,12 @@ th, td {
   gap: 10px; /* Space between elements */
 }
 
-input[type="text"], select, button {
+input[type="text"], select {
   padding: 8px;
   font-size: 14px;
 }
+
+
 
 label {
   margin: 0; /* Remove default margin from labels */

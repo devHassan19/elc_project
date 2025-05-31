@@ -8,10 +8,12 @@
 <body>
   <header>
     <nav>
-      <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
+      <a href="{% url 'admin_page' %}"> 
+        <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
+    </a>
       <ul>
-        <li><a href="{% url 'add_category' %}">اضافة categories</a></li>
-        <li><a href="{% url 'add_subject' %}">اضافة مادة</a></li>
+        <li><a href="{% url 'add_category' %}">اضافة فئة</a></li>
+        <li><a href="{% url 'add_subject' %}">ادارة الدورات</a></li>
         <li><a href="{% url 'accept_admin' %}">طلبات التاجيل</a></li>
         <li><a href="{% url 'admin_page' %}">الرئيسية</a></li>
         <li>

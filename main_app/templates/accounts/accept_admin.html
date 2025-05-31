@@ -8,10 +8,12 @@
 <body>
   <header>
     <nav>
-      <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
+      <a href="{% url 'admin_page' %}"> 
+        <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
+    </a>
       <ul>
-        <li><a href="{% url 'add_category' %}">اضافة categories</a></li>
-        <li><a href="{% url 'add_subject' %}">اضافة مادة</a></li>
+        <li><a href="{% url 'add_category' %}">اضافة فئة</a></li>
+        <li><a href="{% url 'add_subject' %}">ادارة الدورات</a></li>
         <li><a href="{% url 'accept_admin' %}">طلبات التاجيل</a></li>
         <li><a href="{% url 'admin_page' %}">الرئيسية</a></li>
         <li>
@@ -26,7 +28,7 @@
 
 <h2>Accept Student Requests</h2>
 
-<div class="search-bar">
+{% comment %} <div class="search-bar">
   <form method="GET" action="{% url 'accept_admin' %}">
       {% csrf_token %}
       <select name="field">
@@ -43,11 +45,25 @@
       </label>
       <button type="submit">Search</button>
   </form>
+</div> {% endcomment %}
+
+<div class="search-bar">
+  <form method="GET" action="{% url 'add_subject' %}"> <!-- Adjust the URL as needed -->
+      {% csrf_token %}
+      <select name="category" onchange="this.form.submit()"> <!-- Automatically submit on selection -->
+          <option value="">All Categories</option>
+          {% for category in categories %}
+              <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>{{ category.name }}</option>
+          {% endfor %}
+      </select>
+      <button type="submit">Search</button>
+  </form>
 </div>
 
 <form method="POST" action="{% url 'accept_admin' %}">
   {% csrf_token %}
   <table>
+    <button type="submit" id="update-payment-btn">Update Payment Status</button>
     <thead>
       <tr>
         <th>#</th>
@@ -85,7 +101,7 @@
       {% endfor %}
     </tbody>
   </table>
-  <button type="submit">Update Payment Status</button>
+
 </form>
 
 </body>
