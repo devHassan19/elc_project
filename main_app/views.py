@@ -85,8 +85,22 @@ def submit_request(request):
     
     return render(request, 'accounts/submit_request.html', {'form': form})
 
+# def accept_admin(request):
+#     accepted_requests = StudentRequest.objects.filter(status='Approved')  # Ensure status matches 'Approved'
+#     return render(request, 'accounts/accept_admin.html', {'requests': accepted_requests})
+
 def accept_admin(request):
-    accepted_requests = StudentRequest.objects.filter(status='Approved')  # Ensure status matches 'Approved'
+    accepted_requests = StudentRequest.objects.filter(status='Approved')
+
+    if request.method == 'POST':
+        for key in request.POST:
+            if key.startswith('done_'):
+                request_id = key.split('_')[1]
+                done_value = request.POST.get(key) == 'on'
+                student_request = StudentRequest.objects.get(id=request_id)
+                student_request.done = done_value
+                student_request.save()
+
     return render(request, 'accounts/accept_admin.html', {'requests': accepted_requests})
 
 @login_required

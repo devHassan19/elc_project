@@ -19,6 +19,7 @@ class StudentRequest(models.Model):
     attachment = models.FileField(upload_to='attachments/', blank=True, null=True)
     status = models.CharField(max_length=10, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)  # Ensure this field exists
+    done = models.BooleanField(default=False)  # New field for checkbox
 
     def __str__(self):
         return self.student_name
