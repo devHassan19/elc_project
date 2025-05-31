@@ -74,7 +74,8 @@ def add_category(request):
     return render(request, 'accounts/add_category.html', {'form': form})
 
 def add_subject(request):
-    categories = Category.objects.all()  # Fetch all categories
+    subjects = Subject.objects.all() 
+    categories = Category.objects.all()  
 
     if request.method == 'POST':
         form = SubjectForm(request.POST, request.FILES)
@@ -86,11 +87,18 @@ def add_subject(request):
             subject.category = get_object_or_404(Category, id=category_id)  # Fetch the category instance
             
             subject.save()  # Now save the subject
-            return redirect('admin_page')  # Redirect after saving
+            return redirect('add_subject')  # Redirect after saving
     else:
         form = SubjectForm()
 
-    return render(request, 'accounts/add_subject.html', {'form': form, 'categories': categories})
+    return render(request, 'accounts/add_subject.html', {'form': form, 'categories': categories, 'subjects': subjects})
+
+
+def delete_subject(request, subject_id):
+    subject = get_object_or_404(Subject, id=subject_id)
+    subject.delete()  # Delete the subject
+    messages.success(request, 'Subject deleted successfully!')  # Add success message
+    return redirect('add_subject') 
 
 def submit_request(request):
     if request.method == 'POST':
