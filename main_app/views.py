@@ -52,7 +52,7 @@ def student_page(request):
         form = StudentRequestForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Request submitted successfully!')
+            messages.success(request,  'تم تقديم طلبك بنجاح. سيتم التواصل معك خلال 24 ساعة. إذا لم تصلك رسالتنا، الرجاء التواصل مع الدعم الفني  36195555. \nRequest submitted successfully! We will contact you within 24 hours. If you do not receive our message, please contact ELC support.')
             return redirect('student_page')
     else:
         form = StudentRequestForm()  # Use empty form for GET request
