@@ -95,8 +95,8 @@ def accept_admin(request):
     if query:
         if query_field == 'student_name':
             accepted_requests = accepted_requests.filter(student_name__icontains=query)
-        elif query_field == 'phone_number':
-            accepted_requests = accepted_requests.filter(phone_number__icontains=query)
+        elif query_field == 'univ_id':
+            accepted_requests = accepted_requests.filter(univ_id__icontains=query)
         elif query_field == 'status':
             accepted_requests = accepted_requests.filter(status__icontains=query)
 

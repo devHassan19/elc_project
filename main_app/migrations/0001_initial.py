@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('student_name', models.CharField(max_length=100)),
-                ('phone_number', models.CharField(max_length=15)),
+                ('univ_id', models.CharField(max_length=15)),
                 ('attachment', models.FileField(blank=True, null=True, upload_to='student_attachments/')),
                 ('status', models.CharField(default='Pending', max_length=10)),
                 ('submitted_at', models.DateTimeField(auto_now_add=True)),

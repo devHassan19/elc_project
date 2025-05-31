@@ -31,6 +31,8 @@
       <th>#</th> <!-- Added ID column -->
       <th>Student Name</th>
       <th>Phone Number</th>
+      <th>Email</th> <!-- Added Email column -->
+      <th>University ID</th> <!-- Added University ID column -->
       <th>Subjects</th>
       <th>Attachment</th>
       <th>Status</th>
@@ -43,6 +45,8 @@
       <td>{{ forloop.counter }}</td> <!-- Display the row number -->
       <td>{{ request.student_name }}</td>
       <td>{{ request.phone_number }}</td>
+      <td>{{ request.email }}</td> <!-- Display Email -->
+      <td>{{ request.univ_id }}</td> <!-- Display University ID -->
       <td>
         {% for subject in request.subject.all %}
           {{ subject.name }}{% if not forloop.last %}, {% endif %}
@@ -74,7 +78,7 @@
       </td>
     </tr>
     {% empty %}
-    <tr><td colspan="7">No requests found</td></tr>
+    <tr><td colspan="9">No requests found</td></tr>
     {% endfor %}
   </tbody>
 </table>

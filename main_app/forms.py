@@ -4,9 +4,11 @@ from .models import StudentRequest, Subject  # Import both models
 class StudentRequestForm(forms.ModelForm):
     class Meta:
         model = StudentRequest
-        fields = ['student_name', 'phone_number', 'subject', 'attachment']
-    
+        fields = ['student_name', 'univ_id', 'email', 'phone_number', 'subject', 'attachment']
+
     student_name = forms.CharField(required=True)  # Make student_name required
+    univ_id = forms.CharField(required=True)  # Make univ_id required
+    email = forms.EmailField(required=True)  # Make email required
     phone_number = forms.CharField(required=True)  # Make phone_number required
 
     subject = forms.ModelMultipleChoiceField(
@@ -21,7 +23,6 @@ class StudentRequestForm(forms.ModelForm):
         widget=forms.ClearableFileInput(attrs={'accept': 'image/*'}),
         required=True  # Make attachment required
     )
-
 class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject

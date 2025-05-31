@@ -108,3 +108,25 @@ th, td {
     gap: 15px;
   }
 }
+
+/* ------------------------------------------------------------ */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar form {
+  display: flex;
+  gap: 10px; /* Space between elements */
+}
+
+input[type="text"], select, button {
+  padding: 8px;
+  font-size: 14px;
+}
+
+label {
+  margin: 0; /* Remove default margin from labels */
+}
