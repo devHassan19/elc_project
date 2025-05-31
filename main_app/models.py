@@ -18,8 +18,9 @@ class StudentRequest(models.Model):
     subject = models.ManyToManyField(Subject)
     attachment = models.FileField(upload_to='attachments/', blank=True, null=True)
     status = models.CharField(max_length=10, default='Pending')
-    created_at = models.DateTimeField(auto_now_add=True)  # Ensure this field exists
-    done = models.BooleanField(default=False)  # New field for checkbox
+    created_at = models.DateTimeField(auto_now_add=True)
+    first_payment = models.BooleanField(default=False)  # New field for first payment checkbox
+    second_payment = models.BooleanField(default=False)  # New field for second payment checkbox
 
     def __str__(self):
         return self.student_name

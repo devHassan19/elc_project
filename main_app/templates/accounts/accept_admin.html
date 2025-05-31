@@ -25,42 +25,25 @@
 
 <h2>Accept Student Requests</h2>
 
-{% comment %} <table>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Student Name</th>
-      <th>Phone Number</th>
-      <th>Subjects</th>
-      <th>Attachment</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for request in requests %}
-    <tr>
-      <td>{{ forloop.counter }}</td>
-      <td>{{ request.student_name }}</td>
-      <td>{{ request.phone_number }}</td>
-      <td>
-        {% for subject in request.subject.all %}
-          {{ subject.name }}{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-      </td>
-      <td>
-        {% if request.attachment %}
-          <a href="{{ request.attachment.url }}" target="_blank">View Attachment</a>
-        {% else %}
-          No Attachment
-        {% endif %}
-      </td>
-      <td>{{ request.status }}</td>
-    </tr>
-    {% empty %}
-    <tr><td colspan="6">No approved requests found</td></tr>
-    {% endfor %}
-  </tbody>
-</table> {% endcomment %}
+<div class="search-bar">
+  <form method="GET" action="{% url 'accept_admin' %}">
+      {% csrf_token %}
+      <select name="field">
+          <option value="student_name" {% if query_field == 'student_name' %}selected{% endif %}>Student Name</option>
+          <option value="phone_number" {% if query_field == 'phone_number' %}selected{% endif %}>Phone Number</option>
+          <option value="status" {% if query_field == 'status' %}selected{% endif %}>Status</option>
+      </select>
+      <input type="text" name="search" value="{{ query }}" placeholder="Enter search value">
+      <label>
+          <input type="checkbox" name="first_payment" {% if first_payment %}checked{% endif %}> First Payment
+      </label>
+      <label>
+          <input type="checkbox" name="second_payment" {% if second_payment %}checked{% endif %}> Second Payment
+      </label>
+      <button type="submit">Search</button>
+  </form>
+</div>
+
 
 <form method="POST" action="{% url 'accept_admin' %}">
   {% csrf_token %}
@@ -73,7 +56,8 @@
         <th>Subjects</th>
         <th>Attachment</th>
         <th>Status</th>
-        <th>Done</th> <!-- New header for checkbox -->
+        <th>First Payment</th>
+        <th>Second Payment</th>
       </tr>
     </thead>
     <tbody>
@@ -96,15 +80,20 @@
         </td>
         <td>{{ request.status }}</td>
         <td>
-          <input type="checkbox" name="done_{{ request.id }}" {% if request.done %}checked{% endif %}> <!-- Enabled checkbox -->
+          <input type="checkbox" name="first_payment_{{ request.id }}" {% if request.first_payment %}checked{% endif %}>
+        </td>
+        <td>
+          <input type="checkbox" name="second_payment_{{ request.id }}" {% if request.second_payment %}checked{% endif %}>
         </td>
       </tr>
       {% empty %}
-      <tr><td colspan="7">No approved requests found</td></tr>
+      <tr><td colspan="8">No approved requests found</td></tr>
       {% endfor %}
     </tbody>
   </table>
-  <button type="submit">Update Done Status</button> <!-- Submit button -->
+  <button type="submit">Update Payment Status</button>
 </form>
+
+
 </body>
 </html>
