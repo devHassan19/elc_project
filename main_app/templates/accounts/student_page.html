@@ -17,9 +17,130 @@
 
 <h2>Submit Student Request</h2>
 
-<form method="POST" enctype="multipart/form-data" class="student-request-form">
+{% comment %} <form method="POST" enctype="multipart/form-data" class="student-request-form">
   {% csrf_token %}
   {{ form.as_p }}
+  <button type="submit">Submit</button>
+</form> {% endcomment %}
+{% comment %} <form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  
+   <div class="form-group">
+        <label for="id_student_name">Student Name:</label>
+        <input type="text" name="student_name" id="id_student_name" value="{{ form.student_name.value }}" 
+               class="your-css-class" placeholder="Enter your name">
+    </div>
+  
+    <div class="form-group">
+        <label for="id_phone_number">Phone Number:</label>
+        <input type="text" name="phone_number" id="id_phone_number" value="{{ form.phone_number.value }}" 
+               class="your-css-class" placeholder="Enter your phone number">
+    </div>
+
+    <div class="form-group">
+        <label for="id_email">Email:</label>
+        <input type="email" name="email" id="id_email" value="{{ form.email.value }}" 
+               class="your-css-class" placeholder="Enter your email">
+    </div>
+
+    <div class="form-group">
+        <label for="id_univ_id">University ID:</label>
+        <input type="text" name="univ_id" id="id_univ_id" value="{{ form.univ_id.value }}" 
+               class="your-css-class" placeholder="Enter your university ID">
+    </div>
+
+
+  <button type="submit">Submit</button>
+</form> {% endcomment %}
+
+
+{% comment %} <form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  
+  <div class="form-group">
+      <label for="id_student_name">Student Name:</label>
+      <input type="text" name="student_name" id="id_student_name" value="{{ form.student_name.value }}" 
+             class="your-css-class" placeholder="Enter your name">
+  </div>
+
+  <div class="form-group">
+      <label for="id_phone_number">Phone Number:</label>
+      <input type="text" name="phone_number" id="id_phone_number" value="{{ form.phone_number.value }}" 
+             class="your-css-class" placeholder="Enter your phone number">
+  </div>
+
+  <div class="form-group">
+      <label for="id_email">Email:</label>
+      <input type="email" name="email" id="id_email" value="{{ form.email.value }}" 
+             class="your-css-class" placeholder="Enter your email">
+  </div>
+
+  <div class="form-group">
+      <label for="id_univ_id">University ID:</label>
+      <input type="text" name="univ_id" id="id_univ_id" value="{{ form.univ_id.value }}" 
+             class="your-css-class" placeholder="Enter your university ID">
+  </div>
+
+  <div class="form-group">
+      <label>Subjects:</label>
+      {% for subject in subjects %}
+          <div>
+              <input type="checkbox" name="subject" id="id_subject_{{ subject.id }}" value="{{ subject.id }}">
+              <label for="id_subject_{{ subject.id }}">{{ subject.name }}</label>
+          </div>
+      {% endfor %}
+  </div>
+
+  <div class="form-group">
+      <label for="id_attachment">Attachment:</label>
+      <input type="file" name="attachment" id="id_attachment" class="your-css-class">
+  </div>
+
+  <button type="submit">Submit</button>
+</form> {% endcomment %}
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  
+  <div class="form-group">
+      <label for="id_student_name">Student Name:</label>
+      <input type="text" name="student_name" id="id_student_name" value="{{ form.student_name.value|default:'' }}" 
+             class="your-css-class" placeholder="Enter your name">
+  </div>
+
+  <div class="form-group">
+      <label for="id_phone_number">Phone Number:</label>
+      <input type="text" name="phone_number" id="id_phone_number" value="{{ form.phone_number.value|default:'' }}" 
+             class="your-css-class" placeholder="Enter your phone number">
+  </div>
+
+  <div class="form-group">
+      <label for="id_email">Email:</label>
+      <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}" 
+             class="your-css-class" placeholder="Enter your email">
+  </div>
+
+  <div class="form-group">
+      <label for="id_univ_id">University ID:</label>
+      <input type="text" name="univ_id" id="id_univ_id" value="{{ form.univ_id.value|default:'' }}" 
+             class="your-css-class" placeholder="Enter your university ID">
+  </div>
+
+  <div class="form-group">
+      <label>Subjects:</label>
+      {% for subject in subjects %}
+          <div>
+              <input type="checkbox" name="subject" id="id_subject_{{ subject.id }}" value="{{ subject.id }}">
+              <label for="id_subject_{{ subject.id }}">{{ subject.name }}</label>
+          </div>
+      {% endfor %}
+  </div>
+
+  <div class="form-group">
+      <label for="id_attachment">Attachment:</label>
+      <input type="file" name="attachment" id="id_attachment" class="your-css-class">
+  </div>
+
   <button type="submit">Submit</button>
 </form>
 

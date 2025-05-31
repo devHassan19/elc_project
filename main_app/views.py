@@ -48,18 +48,38 @@ def login_view(request):
 
 
 
+# def student_page(request):
+#     subjects = Subject.objects.all()  # Fetch all subjects
+
+#     if request.method == 'POST':
+#         form = StudentRequestForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Request submitted successfully!')  # Use messages framework
+#             return redirect('student_page')
+#     else:
+#         form = StudentRequestForm()
+
+#     return render(request, 'accounts/student_page.html', {
+#         'form': form,
+#         'subjects': subjects,  # Pass subjects to the template
+#     })
+
 def student_page(request):
+    subjects = Subject.objects.all()  # Fetch all subjects
+
     if request.method == 'POST':
         form = StudentRequestForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()  
-            messages.success(request, 'Request submitted successfully!')  # Use messages framework
-            return redirect('student_page')  
+            form.save()
+            messages.success(request, 'Request submitted successfully!')
+            return redirect('student_page')
     else:
-        form = StudentRequestForm()
+        form = StudentRequestForm()  # Use empty form for GET request
 
     return render(request, 'accounts/student_page.html', {
         'form': form,
+        'subjects': subjects,
     })
 
 
