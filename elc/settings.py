@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'elc.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ElcRequest',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'USER': 'AdminElc',  # Use 'USER' instead of 'Username'
+        'PASSWORD': 'admin@elc'  # Use 'PASSWORD' instead of 'Password'
     }
 }
 

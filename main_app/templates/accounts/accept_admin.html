@@ -28,34 +28,21 @@
 
 <h2>Accept Student Requests</h2>
 
-{% comment %} <div class="search-bar">
+<div class="search-bar">
   <form method="GET" action="{% url 'accept_admin' %}">
       {% csrf_token %}
       <select name="field">
           <option value="student_name" {% if query_field == 'student_name' %}selected{% endif %}>Student Name</option>
-          <option value="univ_id" {% if query_field == 'univ_id' %}selected{% endif %}>University ID</option>
-          <option value="email" {% if query_field == 'email' %}selected{% endif %}>Email</option>
+          <option value="phone_number" {% if query_field == 'phone_number' %}selected{% endif %}>Phone Number</option>
+          <option value="status" {% if query_field == 'status' %}selected{% endif %}>Status</option>
       </select>
       <input type="text" name="search" value="{{ query }}" placeholder="Enter search value">
-      <label>
+      <label>More actions
           <input type="checkbox" name="first_payment" {% if first_payment %}checked{% endif %}> First Payment
       </label>
       <label>
           <input type="checkbox" name="second_payment" {% if second_payment %}checked{% endif %}> Second Payment
       </label>
-      <button type="submit">Search</button>
-  </form>
-</div> {% endcomment %}
-
-<div class="search-bar">
-  <form method="GET" action="{% url 'add_subject' %}"> <!-- Adjust the URL as needed -->
-      {% csrf_token %}
-      <select name="category" onchange="this.form.submit()"> <!-- Automatically submit on selection -->
-          <option value="">All Categories</option>
-          {% for category in categories %}
-              <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>{{ category.name }}</option>
-          {% endfor %}
-      </select>
       <button type="submit">Search</button>
   </form>
 </div>
