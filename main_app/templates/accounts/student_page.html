@@ -10,7 +10,7 @@
     <nav>
       <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
       <ul>
-        <li><a href="{% url 'login' %}">Log in</a></li>
+        <li id="login-item"><a href="{% url 'login' %}">Log in</a></li>
       </ul>
     </nav>
   </header>
@@ -19,6 +19,7 @@
     <div class="modal-info">
       <div class="info">
         <h2>Student Information</h2>
+        <h5>ELC لطلب التأجيل في دورات مركز </h5>
         <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="form-container">
@@ -26,7 +27,7 @@
               <ul class="form-list">
                 <li class="form-list-row">
                   <div class="user">
-                    <label for="id_student_name">Student Name - الاسم الثلاثي </label><br>
+                    <label for="id_student_name">Student Name - اسم الطالب </label><br>
                     <i class="fas fa-user"></i>
                     <input type="text" name="student_name" id="id_student_name" value="{{ form.student_name.value|default:'' }}" placeholder="Enter your name" required>
                   </div>
@@ -53,7 +54,7 @@
                 </li>
                 <li class="form-list-row">
                   <div class="attachment">
-                    <label for="id_attachment">CPR -  نسخه من اليطاقة </label><br>
+                    <label for="id_attachment">CPR -  نسخه من البطاقة </label><br>
                     <input type="file" name="attachment" id="id_attachment">
                   </div>
                 </li>
@@ -72,16 +73,16 @@
               <div class="product-slideshow" id="subject_list">
                 {% for subject in subjects %}
                   <div class="subject-item">
-                    <input type="checkbox" name="subject" id="id_subject_{{ subject.id }}" value="{{ subject.id }}">
                     <label for="id_subject_{{ subject.id }}">
                       <div class="subject-content">
+                        <input type="checkbox" name="subject" id="id_subject_{{ subject.id }}" value="{{ subject.id }}" class="checkbox">
                         {% if subject.image %}
                           <img src="{{ subject.image.url }}" alt="{{ subject.name }}" class="subject-image">
                         {% endif %}
                         <div class="subject-details">
                           <h3>{{ subject.name }}</h3>
-                          <p>Price: {{ subject.price }} BD</p>
-                          <p>Advance: {{ subject.advance_payment }} BD</p>
+                          <p>Price: {{ subject.price }}BD</p>
+                          <p>Advance: {{ subject.advance_payment }}BD</p>
                         </div>
                       </div>
                     </label>

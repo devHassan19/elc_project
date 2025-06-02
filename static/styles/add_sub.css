@@ -65,37 +65,6 @@ th, td {
   border: 1px solid #ddd;
 }
 
-@media (max-width: 600px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
-  
-  th {
-    display: none; /* Hide headers on small screens */
-  }
-
-  tr {
-    margin-bottom: 15px;
-  }
-
-  td {
-    text-align: right;
-    position: relative;
-    padding-left: 50%;
-  }
-
-  td::before {
-    content: attr(data-label); /* Use data-label for responsive display */
-    position: absolute;
-    left: 10px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    text-align: left;
-  }
-}
-
-
 /* ------------------------------------- */
 
 .form-group {
@@ -130,13 +99,6 @@ button:hover {
   color: #007bff; /* Link color */
 }
 
-
-
-
-
-
-
-
 .subject-list {
   display: flex;
   flex-wrap: wrap;
@@ -159,6 +121,69 @@ button:hover {
 
 
 
+select {
+  padding: 10px; /* Add padding for better touch area */
+  border: 2px solid #edb82d; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1rem; /* Font size */
+  margin-right: 10px; /* Space between select and button */
+  background-color: white; /* Background color */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+select:focus {
+  border-color: #cdb196; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.update-button {
+  padding: 10px 20px; /* Add padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #edb82d; /* Button background color */
+  color: white; /* Button text color */
+  font-size: 1rem; /* Font size */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.update-button:hover {
+  background-color: #cdb196; /* Darken button on hover */
+}
+
+.message-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  max-width: 90%;
+  z-index: 1000;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-content {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1em;
+}
+
+.close-message {
+  background-color: #53ff4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 15px;
+  font-size: 1em;
+}
 
 
 

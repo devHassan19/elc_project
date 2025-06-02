@@ -42,7 +42,6 @@ nav ul li a:hover {
   border-radius: 5px;
 }
 
-/* -------------------------------------------------------------- */
 * {
   margin: 0;
   padding: 0;
@@ -72,7 +71,10 @@ body {
 .modal-info {
   width: 100%;
   height: auto;
-  margin: 20px 0; /* Add vertical spacing */
+  margin: 20px 0;
+  background-image: url('/static/images/elc-bg.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .info {
@@ -80,10 +82,30 @@ body {
   margin: auto;
 }
 
+h2, h3, h4, h5 {
+  margin: 1rem 0;
+}
+
 h2 {
   font-size: 2.25rem;
-  text-align: center; /* Center the text */
-  margin: 1rem 0; /* Remove left margin and add vertical spacing */
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #edb82d;
+}
+
+h5 {
+  font-size: 2rem;
+  text-align: center;
+  color: #edb82d;
+}
+
+h4 {
+  font-size: 2rem;
+  text-align: left;
 }
 
 .form-list {
@@ -131,36 +153,50 @@ button:hover {
 
 .subject-content {
   display: flex;
-  align-items: center; /* Vertically center items */
+  align-items: center;
 }
 
 .subject-details {
-  margin-left: 10px; /* Space between image and text */
-  font-size: 1.2rem; /* Increase font size */
+  margin-left: 10px;
+  font-size: 1.2rem;
 }
 
 .subject-image {
-  width: 100px; /* Fixed width */
-  height: 100px; /* Fixed height */
-  object-fit: cover; /* Maintain aspect ratio */
-  max-width: none; /* Prevent responsive resizing */
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  max-width: none;
 }
 
 .form-container {
   display: flex;
   justify-content: space-between;
-  margin: 20px 0; /* Add spacing above and below the form */
+  margin: 10px 0;
 }
 
 .input-section {
-  width: 48%; /* Adjust width as needed */
+  width: 40%;
 }
 
 .subject-section {
-  width: 48%; /* Adjust width as needed */
-  padding-left: 20px; /* Space between sections */
-  max-height: 380px; /* Set a fixed height for the scrollbar */
-  overflow-y: auto; /* Enable vertical scrolling */
+  width: 75%;
+  padding-left: 20px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+input[type="checkbox"].checkbox {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.subject-item {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
 }
 
 .message-window {
@@ -190,82 +226,74 @@ button:hover {
   padding: 5px 10px;
 }
 
-.message-window {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Center the window */
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  width: 400px; /* Set width */
-  max-width: 90%; /* Responsive max width */
-  z-index: 1000;
-  padding: 20px; /* Increased padding */
-  text-align: center; /* Center text */
+#login-item {
+  list-style-type: none;
+  margin: 10px 0;
 }
 
-.message-content {
-  margin-bottom: 15px;
-  color: #333;
-  font-size: 1.1em; /* Increased font size */
+#login-item a {
+  text-decoration: none;
+  color: #e4e4e4;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
-.close-message {
-  background-color: #53ff4d;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 8px 15px; /* Increased button size */
-  font-size: 1em; /* Font size for button */
+#login-item a:hover {
+  color: #0056b3;
 }
 
-/* -------------------- */
-
-
-/* Responsive Styles */
 @media (max-width: 768px) {
   nav {
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align items to the start */
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   nav ul {
-    flex-direction: column; /* Stack navigation items */
-    width: 100%; /* Full width for nav items */
-    padding: 10px 0; /* Add padding */
-  }
-
-  nav ul li {
-    width: 100%; /* Full width for each item */
+    flex-direction: column;
+    gap: 15px;
   }
 
   .form-container {
-    flex-direction: column; /* Stack form fields vertically */
+    flex-direction: column;
+    margin: 10px 0;
   }
 
   .input-section, .subject-section {
-    width: 100%; /* Full width for sections */
-    padding-left: 0; /* Remove padding */
-  }
-
-  .subject-image {
-    width: 80px; /* Adjust image size */
-    height: 80px; /* Adjust image size */
+    width: 100%;
   }
 
   h2 {
-    font-size: 1.5rem; /* Adjust heading size */
+    font-size: 1.8rem;
+  }
+
+  h3, h4, h5 {
+    font-size: 1.5rem;
   }
 
   button {
-    width: 100%; /* Full width for buttons */
-    margin-left: 0; /* Remove left margin */
+    width: 100%;
+    margin-left: 0;
   }
 
-  .message-window {
-    width: 90%; /* Responsive width for message window */
+  .modal {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  nav img {
+    width: 200px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3, h4, h5 {
+    font-size: 1.2rem;
+  }
+
+  input {
+    width: 90%;
   }
 }

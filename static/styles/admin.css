@@ -131,7 +131,39 @@ button:hover {
 }
 
 
+.message-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  max-width: 90%;
+  z-index: 1000;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
 
+.message-content {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1em;
+}
+
+.close-message {
+  background-color: #53ff4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 15px;
+  font-size: 1em;
+}
 
 
 

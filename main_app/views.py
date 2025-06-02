@@ -45,14 +45,32 @@ def login_view(request):
             return render(request, 'accounts/login.html', {'error': 'Invalid credentials'})
     return render(request, 'accounts/login.html')
 
+# def student_page(request):
+#     subjects = Subject.objects.all()  # Fetch all subjects
+
+#     if request.method == 'POST':
+#         form = StudentRequestForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request,  'تم تقديم طلبك بنجاح. سيتم التواصل معك خلال 24 ساعة. إذا لم تصلك رسالتنا، الرجاء التواصل مع الدعم الفني  36195555. \nRequest submitted successfully! We will contact you within 24 hours. If you do not receive our message, please contact ELC support.')
+#             return redirect('student_page')
+#     else:
+#         form = StudentRequestForm()  # Use empty form for GET request
+
+#     return render(request, 'accounts/student_page.html', {
+#         'form': form,
+#         'subjects': subjects,
+#     })
+
 def student_page(request):
-    subjects = Subject.objects.all()  # Fetch all subjects
+    # Fetch only subjects that are published
+    subjects = Subject.objects.filter(state='Published')  
 
     if request.method == 'POST':
         form = StudentRequestForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request,  'تم تقديم طلبك بنجاح. سيتم التواصل معك خلال 24 ساعة. إذا لم تصلك رسالتنا، الرجاء التواصل مع الدعم الفني  36195555. \nRequest submitted successfully! We will contact you within 24 hours. If you do not receive our message, please contact ELC support.')
+            messages.success(request, 'تم تقديم طلبك بنجاح. سيتم التواصل معك خلال 24 ساعة. إذا لم تصلك رسالتنا، الرجاء التواصل مع الدعم الفني 36195555. \nRequest submitted successfully! We will contact you within 24 hours. If you do not receive our message, please contact ELC support.')
             return redirect('student_page')
     else:
         form = StudentRequestForm()  # Use empty form for GET request
@@ -66,8 +84,9 @@ def add_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
-            form.save()  # Save the new category
-            return redirect('admin_page')  # Redirect after saving
+            form.save() 
+            messages.success(request, 'Category Add successfully!') 
+            return redirect('add_category')  # Redirect after saving
     else:
         form = CategoryForm()
 
@@ -103,6 +122,20 @@ def add_subject(request):
         'subjects': subjects,
         'selected_category': selected_category,  # Pass the selected category to the template
     })
+
+def update_subject_state(request, subject_id):
+    subject = get_object_or_404(Subject, id=subject_id)
+    
+    if request.method == 'POST':
+        new_state = request.POST.get('state')
+        if new_state in ['Draft', 'Published', 'Archived']:
+            subject.state = new_state  # Update the state
+            subject.save()  # Save the changes
+            messages.success(request, 'Subject state updated successfully!')  # Success message
+        else:
+            messages.error(request, 'Invalid state selected.')  # Error message
+
+    return redirect('add_subject') 
 
 def delete_subject(request, subject_id):
     subject = get_object_or_404(Subject, id=subject_id)

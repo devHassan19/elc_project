@@ -79,33 +79,54 @@
     </form>
   </div>
   
-  <div class="subject-list">
-    {% for subject in subjects %}
-        <div class="subject-item">
-            <h3>{{ subject.name }}</h3>
-            <img src="{{ subject.image.url }}" alt="{{ subject.name }}" class="subject-image">
-            <p>Price: {{ subject.price }} BD</p>
-            <p>Advance Payment: {{ subject.advance_payment }} BD</p>
-            <p>Description: {{ subject.description }}</p>
-            <p>Created At: {{ subject.created_at }}</p>
-            <p>Updated At: {{ subject.updated_at }}</p>
-            <form action="{% url 'delete_subject' subject.id %}" method="POST" style="display:inline;" onsubmit="return confirmDelete();">
-                {% csrf_token %}
-                <button type="submit" class="delete-button">Delete</button>
-            </form>
-        </div>
-    {% empty %}
-        <p>No subjects available.</p>
-    {% endfor %}
+
+<div class="subject-list">
+  {% for subject in subjects %}
+      <div class="subject-item">
+          <h3>{{ subject.name }}</h3>
+          <img src="{{ subject.image.url }}" alt="{{ subject.name }}" class="subject-image">
+          <p>Price: {{ subject.price }} BD</p>
+          <p>Advance Payment: {{ subject.advance_payment }} BD</p>
+          <p>Current State: {{ subject.state }}</p> <!-- Display the current state -->
+
+          <!-- Form to change the state -->
+          <form action="{% url 'update_subject_state' subject.id %}" method="POST" style="display:inline;">
+              {% csrf_token %}
+              <select name="state">
+                  <option value="Draft" {% if subject.state == 'Draft' %}selected{% endif %}>Draft</option>
+                  <option value="Published" {% if subject.state == 'Published' %}selected{% endif %}>Publish</option>
+              </select>
+              <button type="submit" class="update-button">Update State</button>
+          </form>
+
+          <!-- Form to delete the subject -->
+          <form action="{% url 'delete_subject' subject.id %}" method="POST" style="display:inline;" onsubmit="return confirmDelete();">
+              {% csrf_token %}
+              <button type="submit" class="delete-button">Delete</button>
+          </form>
+      </div>
+  {% empty %}
+      <p>No subjects available.</p>
+  {% endfor %}
 </div>
+
+
+{% if messages %}
+<div class="modal message-window">
+  <div class="message-content">
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+  <button class="close-message" onclick="this.parentElement.style.display='none'">✖ Close</button>
+</div>
+{% endif %}
 
 <script>
     function confirmDelete() {
         return confirm('Are you sure you want to delete this subject?');
     }
 </script>
-
-
 
 </body>
 </html>

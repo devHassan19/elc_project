@@ -34,10 +34,9 @@
       <select name="field">
           <option value="student_name" {% if query_field == 'student_name' %}selected{% endif %}>Student Name</option>
           <option value="phone_number" {% if query_field == 'phone_number' %}selected{% endif %}>Phone Number</option>
-          <option value="status" {% if query_field == 'status' %}selected{% endif %}>Status</option>
       </select>
       <input type="text" name="search" value="{{ query }}" placeholder="Enter search value">
-      <label>More actions
+      <label>
           <input type="checkbox" name="first_payment" {% if first_payment %}checked{% endif %}> First Payment
       </label>
       <label>
