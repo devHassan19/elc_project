@@ -5,7 +5,12 @@ from django.shortcuts import render, get_object_or_404
 from .forms import StudentRequestForm , SubjectForm, CategoryForm
 from .models import StudentRequest, Subject, Category
 from django.contrib import messages
-
+from django.http import HttpResponse
+import io
+import zipfile
+from django.urls import reverse
+import openpyxl
+from django.core.paginator import Paginator
 
 def register_view(request):
     if request.method == "POST":
@@ -44,23 +49,6 @@ def login_view(request):
         else:
             return render(request, 'accounts/login.html', {'error': 'Invalid credentials'})
     return render(request, 'accounts/login.html')
-
-# def student_page(request):
-#     subjects = Subject.objects.all()  # Fetch all subjects
-
-#     if request.method == 'POST':
-#         form = StudentRequestForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request,  'تم تقديم طلبك بنجاح. سيتم التواصل معك خلال 24 ساعة. إذا لم تصلك رسالتنا، الرجاء التواصل مع الدعم الفني  36195555. \nRequest submitted successfully! We will contact you within 24 hours. If you do not receive our message, please contact ELC support.')
-#             return redirect('student_page')
-#     else:
-#         form = StudentRequestForm()  # Use empty form for GET request
-
-#     return render(request, 'accounts/student_page.html', {
-#         'form': form,
-#         'subjects': subjects,
-#     })
 
 def student_page(request):
     # Fetch only subjects that are published
@@ -156,11 +144,14 @@ def submit_request(request):
     
 def accept_admin(request):
     query = request.GET.get('search', '')
-    query_field = request.GET.get('field', 'student_name')  # Default to student_name
-    first_payment = request.GET.get('first_payment')  # Check if first_payment is checked
-    second_payment = request.GET.get('second_payment')  # Check if second_payment is checked
+    query_field = request.GET.get('field', 'student_name')
+    first_payment = request.GET.get('first_payment')
+    second_payment = request.GET.get('second_payment')
+
+    # Fetch accepted requests
     accepted_requests = StudentRequest.objects.filter(status='Approved')
 
+    # Apply search filters
     if query:
         if query_field == 'student_name':
             accepted_requests = accepted_requests.filter(student_name__icontains=query)
@@ -169,45 +160,121 @@ def accept_admin(request):
         elif query_field == 'status':
             accepted_requests = accepted_requests.filter(status__icontains=query)
 
-    # Filter by payment status if checkboxes are checked
+    # Filter by payment status
     if first_payment and not second_payment:
         accepted_requests = accepted_requests.filter(first_payment=False)
     elif second_payment and not first_payment:
         accepted_requests = accepted_requests.filter(second_payment=False)
 
+    # Maintain the original ordering
+    accepted_requests = accepted_requests.order_by('-created_at')  # Adjust sorting as needed
+
+    # Pagination
+    paginator = Paginator(accepted_requests, 30)  # Show 30 requests per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     if request.method == 'POST':
+        if 'export_excel' in request.POST:
+            selected_fields = request.POST.getlist('fields')
+            request.session['export_fields'] = selected_fields
+            return redirect(reverse('export_selected_fields_excel'))
+
+        # Update payment statuses
         for key in request.POST:
             if key.startswith('first_payment_'):
                 request_id = key.split('_')[2]
                 payment_value = request.POST.get(key) == 'on'
-                student_request = StudentRequest.objects.get(id=request_id)
+                student_request = get_object_or_404(StudentRequest, id=request_id)
                 student_request.first_payment = payment_value
                 student_request.save()
             elif key.startswith('second_payment_'):
                 request_id = key.split('_')[2]
                 payment_value = request.POST.get(key) == 'on'
-                student_request = StudentRequest.objects.get(id=request_id)
+                student_request = get_object_or_404(StudentRequest, id=request_id)
                 student_request.second_payment = payment_value
                 student_request.save()
 
-        # Ensure unchecked checkboxes are set to False
+        # Reset unchecked items to False
         for request_id in accepted_requests.values_list('id', flat=True):
             if f'first_payment_{request_id}' not in request.POST:
-                student_request = StudentRequest.objects.get(id=request_id)
+                student_request = get_object_or_404(StudentRequest, id=request_id)
                 student_request.first_payment = False
                 student_request.save()
             if f'second_payment_{request_id}' not in request.POST:
-                student_request = StudentRequest.objects.get(id=request_id)
+                student_request = get_object_or_404(StudentRequest, id=request_id)
                 student_request.second_payment = False
                 student_request.save()
 
+        # Re-fetch accepted requests with the same filters and sorting
+        accepted_requests = StudentRequest.objects.filter(status='Approved')
+
+        # Reapply search filters
+        if query:
+            if query_field == 'student_name':
+                accepted_requests = accepted_requests.filter(student_name__icontains=query)
+            elif query_field == 'univ_id':
+                accepted_requests = accepted_requests.filter(univ_id__icontains=query)
+            elif query_field == 'status':
+                accepted_requests = accepted_requests.filter(status__icontains=query)
+
+        # Reapply payment filters
+        if first_payment and not second_payment:
+            accepted_requests = accepted_requests.filter(first_payment=False)
+        elif second_payment and not first_payment:
+            accepted_requests = accepted_requests.filter(second_payment=False)
+
+        # Maintain the same sort order
+        accepted_requests = accepted_requests.order_by('-created_at')
+
+        paginator = Paginator(accepted_requests, 30)
+        page_number = request.GET.get('page', 1)  # Default to the first page if not set
+        page_obj = paginator.get_page(page_number)
+
     return render(request, 'accounts/accept_admin.html', {
-        'requests': accepted_requests,
+        'page_obj': page_obj,  # Pass the paginated object
         'query': query,
         'query_field': query_field,
         'first_payment': first_payment,
         'second_payment': second_payment
     })
+
+def export_selected_fields_excel(request):
+    # Define all fields to be exported
+    all_fields = [
+        'student_name',
+        'phone_number',
+        'email',
+        'univ_id',
+        'subject',
+        'first_payment',
+        'second_payment'
+    ]
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Student Requests"
+
+    # Append headers
+    ws.append(all_fields)
+
+    requests = StudentRequest.objects.filter(status='Approved')
+
+    for req in requests:
+        row = []
+        for field in all_fields:
+            if field == 'subject':
+                subjects = req.subject.all()
+                subjects_names = ", ".join([str(s) for s in subjects])
+                row.append(subjects_names)
+            else:
+                row.append(getattr(req, field, ''))
+        ws.append(row)
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=student_requests.xlsx'
+    wb.save(response)
+    return response
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
@@ -228,7 +295,12 @@ def admin_page(request):
 
     # Fetch all requests, ordered by creation date
     requests = StudentRequest.objects.all().order_by('-created_at')
-    return render(request, 'accounts/admin_page.html', {'requests': requests})
+    
+    paginator = Paginator(requests, 30)  # Show 30 requests per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'accounts/admin_page.html', {'requests': requests, 'page_obj': page_obj})
 
 
 def logout_view(request):

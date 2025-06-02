@@ -40,7 +40,8 @@ nav ul li a:hover {
   background-color: #f0f0f0;
   border-radius: 5px;
 }
-/* ----------------------------------------------------*/
+
+/* ---------------------------------------------------- */
 
 h2 {
   text-align: center;
@@ -54,6 +55,7 @@ h2 {
 }
 
 /* --------------------------------------------------------- */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -63,8 +65,16 @@ th, td {
   padding: 10px;
   text-align: left;
   border: 1px solid #ddd;
+  font-size: 22px;
 }
 
+input[type="checkbox"] {
+  width: 20px; /* Adjust width */
+  height: 20px; /* Adjust height */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Other button styles */
 button {
   padding: 10px 15px; /* Adjust button padding */
   background-color: #cdb196; /* Button color */
@@ -77,6 +87,7 @@ button {
 button:hover {
   background-color: #b59779; /* Darker button color on hover */
 }
+
 #update-payment-btn {
   display: block; /* Change display to block for alignment */
   margin-left: auto; /* Auto margin on the left */
@@ -94,6 +105,58 @@ button:hover {
   background-color: #b59779; /* Darker shade on hover */
 }
 
+/* ------------------------------------------------------------ */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination a {
+  padding: 10px 15px;
+  margin: 0 5px;
+  background-color: #edb82d;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+  background-color: #b59779; /* Darker shade on hover */
+}
+
+.pagination .current {
+  padding: 10px 15px;
+  margin: 0 5px;
+  background-color: #cdb196;
+  border-radius: 5px;
+}
+
+/* --------------------------------------------------------- */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar form {
+  display: flex;
+  gap: 10px; /* Space between elements */
+}
+
+input[type="text"], select {
+  padding: 8px;
+  font-size: 20px;
+}
+
+label {
+  margin: 0; /* Remove default margin from labels */
+}
+
+/* Responsive Design */
 @media (max-width: 600px) {
   table, thead, tbody, th, td, tr {
     display: block;
@@ -122,29 +185,4 @@ button:hover {
     white-space: nowrap;
     text-align: left;
   }
-}
-
-
-/* ------------------------------------------------------------ */
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.search-bar form {
-  display: flex;
-  gap: 10px; /* Space between elements */
-}
-
-input[type="text"], select {
-  padding: 8px;
-  font-size: 14px;
-}
-
-
-
-label {
-  margin: 0; /* Remove default margin from labels */
 }

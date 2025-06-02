@@ -40,7 +40,8 @@ nav ul li a:hover {
   background-color: #f0f0f0;
   border-radius: 5px;
 }
-/* ----------------------------------------------------*/
+
+/* ---------------------------------------------------- */
 
 h2 {
   text-align: center;
@@ -54,6 +55,7 @@ h2 {
 }
 
 /* --------------------------------------------------------- */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -63,6 +65,7 @@ th, td {
   padding: 10px;
   text-align: left;
   border: 1px solid #ddd;
+  font-size: 22px;
 }
 
 @media (max-width: 600px) {
@@ -94,7 +97,6 @@ th, td {
     text-align: left;
   }
 }
-
 
 /* ------------------------------------- */
 
@@ -130,7 +132,6 @@ button:hover {
   color: #007bff; /* Link color */
 }
 
-
 .message-window {
   position: fixed;
   top: 50%;
@@ -165,18 +166,35 @@ button:hover {
   font-size: 1em;
 }
 
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
 
+.pagination a {
+  padding: 10px 15px;
+  margin: 0 5px;
+  background-color: #edb82d;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
 
+.pagination a:hover {
+  background-color: #b59779; /* Darker shade on hover */
+}
 
+.pagination .current {
+  padding: 10px 15px;
+  margin: 0 5px;
+  background-color: #cdb196;
+  border-radius: 5px;
+}
 
-
-
-
-
-
-
-
-
+/* Responsive Navigation */
 @media (max-width: 600px) {
   nav {
     flex-direction: column;

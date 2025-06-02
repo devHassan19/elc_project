@@ -1,7 +1,9 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Student Requests</title>
   <link rel="stylesheet" href="{% static 'styles/accept_admin.css' %}">
 </head>
@@ -10,7 +12,7 @@
     <nav>
       <a href="{% url 'admin_page' %}"> 
         <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
-    </a>
+      </a>
       <ul>
         <li><a href="{% url 'add_category' %}">اضافة فئة</a></li>
         <li><a href="{% url 'add_subject' %}">ادارة الدورات</a></li>
@@ -26,69 +28,97 @@
     </nav>
   </header>
 
-<h2>Accept Student Requests</h2>
+  <h2>Accept Student Requests</h2>
 
-<div class="search-bar">
-  <form method="GET" action="{% url 'accept_admin' %}">
-      {% csrf_token %}
+  <div class="search-bar">
+    <form method="GET" action="{% url 'accept_admin' %}">
       <select name="field">
-          <option value="student_name" {% if query_field == 'student_name' %}selected{% endif %}>Student Name</option>
-          <option value="phone_number" {% if query_field == 'phone_number' %}selected{% endif %}>Phone Number</option>
+        <option value="student_name" {% if query_field == 'student_name' %}selected{% endif %}>Student Name</option>
+        <option value="phone_number" {% if query_field == 'phone_number' %}selected{% endif %}>Phone Number</option>
       </select>
       <input type="text" name="search" value="{{ query }}" placeholder="Enter search value">
       <label>
-          <input type="checkbox" name="first_payment" {% if first_payment %}checked{% endif %}> First Payment
+        <input type="checkbox" name="first_payment" {% if first_payment %}checked{% endif %}> First Payment
       </label>
       <label>
-          <input type="checkbox" name="second_payment" {% if second_payment %}checked{% endif %}> Second Payment
+        <input type="checkbox" name="second_payment" {% if second_payment %}checked{% endif %}> Second Payment
       </label>
       <button type="submit">Search</button>
-  </form>
-</div>
-
-<form method="POST" action="{% url 'accept_admin' %}">
-  {% csrf_token %}
-  <table>
+    </form>
+  </div>
+  
+  <form method="POST" action="{% url 'accept_admin' %}">
+    {% csrf_token %}
+    
     <button type="submit" id="update-payment-btn">Update Payment Status</button>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Student Name</th>
-        <th>Phone Number</th>
-        <th>Email</th> <!-- Added Email column -->
-        <th>University ID</th> <!-- Added University ID column -->
-        <th>Subjects</th>
-        <th>First Payment</th>
-        <th>Second Payment</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for request in requests %}
-      <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ request.student_name }}</td>
-        <td>{{ request.phone_number }}</td>
-        <td>{{ request.email }}</td> <!-- Display Email -->
-        <td>{{ request.univ_id }}</td> <!-- Display University ID -->
-        <td>
-          {% for subject in request.subject.all %}
-            {{ subject.name }}{% if not forloop.last %}, {% endif %}
-          {% endfor %}
-        </td>
-        <td>
-          <input type="checkbox" name="first_payment_{{ request.id }}" {% if request.first_payment %}checked{% endif %}>
-        </td>
-        <td>
-          <input type="checkbox" name="second_payment_{{ request.id }}" {% if request.second_payment %}checked{% endif %}>
-        </td>
-      </tr>
-      {% empty %}
-      <tr><td colspan="8">No approved requests found</td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
 
-</form>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Student Name</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>University ID</th>
+          <th>Subjects</th>
+          <th>First Payment</th>
+          <th>Second Payment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in page_obj %}
+        <tr>
+          <td>{{ forloop.counter0|add:page_obj.number|add:1 }}</td>
+          <td>{{ request.student_name }}</td>
+          <td>{{ request.phone_number }}</td>
+          <td>{{ request.email }}</td>
+          <td>{{ request.univ_id }}</td>
+          <td>
+            {% for subject in request.subject.all %}
+              {{ subject.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </td>
+          <td>
+            <input type="checkbox" name="first_payment_{{ request.id }}" {% if request.first_payment %}checked{% endif %}>
+          </td>
+          <td>
+            <input type="checkbox" name="second_payment_{{ request.id }}" {% if request.second_payment %}checked{% endif %}>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8">No approved requests found</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
+  </form>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; First</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}. Showing {{ page_obj.paginator.count }} requests.
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+
+  
+  <h3>تصدير جميع البيانات:</h3>
+  <div class="export-bar">
+    <form id="exportForm" method="POST" action="{% url 'export_selected_fields_excel' %}">
+      {% csrf_token %}
+      <button type="submit" name="export_excel">تصدير Excel</button>
+    </form>
+  </div>
 </body>
 </html>
