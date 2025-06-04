@@ -1,0 +1,308 @@
+header {
+  background-color: #edb82d;
+  padding: 20px 40px;
+  margin-bottom: 20px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+nav img {
+  width: 250px;
+  height: auto;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 22px;
+  padding: 15px 20px;
+  transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: poppins, arial, sans-serif;
+  background-color: whitesmoke;
+}
+
+.modal {
+  width: 96%;
+  max-width: 1000px;
+  height: auto;
+  position: relative;
+  margin: auto;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, .3);
+}
+
+.modal-info {
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+  background-image: url('/static/images/elc-bg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.info {
+  width: 90%;
+  margin: auto;
+}
+
+h2, h3, h4, h5 {
+  margin: 1rem 0;
+}
+
+h2 {
+  font-size: 2.25rem;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #edb82d;
+}
+
+h5 {
+  font-size: 2rem;
+  text-align: center;
+  color: #edb82d;
+}
+
+h4 {
+  font-size: 2rem;
+  text-align: left;
+}
+
+.form-list {
+  margin-top: 1.5rem;
+}
+
+.form-list-row {
+  margin: 1rem 0;
+}
+
+label {
+  font-size: 1rem;
+}
+
+input {
+  width: 70%;
+  font-size: 1rem;
+  padding: .4rem 0;
+  border: none;
+  display: inline-block;
+  border-bottom: solid 2px #999;
+  background-color: transparent;
+  transition: all .3s ease;
+}
+
+input:focus {
+  border-color: #cdb196;
+}
+
+button {
+  color: white;
+  font-size: 1rem;
+  margin-left: 1rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 3px;
+  background-color: #cdb196;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  transition: all .3s ease;
+}
+
+button:hover {
+  background-color: #b59779;
+}
+
+.subject-content {
+  display: flex;
+  align-items: center;
+}
+
+.subject-details {
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
+
+.subject-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  max-width: none;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.input-section {
+  width: 40%;
+}
+
+.subject-section {
+  width: 75%;
+  padding-left: 20px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+input[type="checkbox"].checkbox {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.subject-item {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.message-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  max-width: 90%;
+  z-index: 1000;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-content {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1em;
+}
+
+.close-message {
+  background-color: #53ff4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 15px;
+  font-size: 1em;
+}
+
+
+
+#login-item {
+  list-style-type: none;
+  margin: 10px 0;
+}
+
+#login-item a {
+  text-decoration: none;
+  color: #e4e4e4;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+#login-item a:hover {
+  color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-container {
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  .input-section, .subject-section {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  h3, h4, h5 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .modal {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  nav img {
+    width: 200px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3, h4, h5 {
+    font-size: 1.2rem;
+  }
+
+  input {
+    width: 90%;
+  }
+}
