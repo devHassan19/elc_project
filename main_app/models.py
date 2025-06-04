@@ -34,7 +34,7 @@ class StudentRequest(models.Model):
     email = models.EmailField(max_length=255, null=True)
     univ_id = models.CharField(max_length=20, null=True)
     subject = models.ManyToManyField(Subject)
-    attachment = models.FileField(upload_to='attachments/', blank=True, null=True)
+    attachment = CloudinaryField('file')
     status = models.CharField(max_length=10, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
     first_payment = models.BooleanField(default=False)
