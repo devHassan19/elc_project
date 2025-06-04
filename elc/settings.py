@@ -26,6 +26,8 @@ ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'elc-project.onrender.com
 
 # Application definition
 INSTALLED_APPS = [
+    'cloudinary',
+    'cloudinary_storage',
     'main_app',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,6 +79,15 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
+
+#CloudInary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dyspz0zfm',         
+    'API_KEY': '318446189713357',             
+    'API_SECRET': 'GMdaYL25rhjKRgytnXmuA1F54A8',         
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
