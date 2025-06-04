@@ -22,7 +22,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-default-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'elc-project.onrender.com').split(',') 
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'elc-project.onrender.com').split(',')
 
 # Application definition
 INSTALLED_APPS = [

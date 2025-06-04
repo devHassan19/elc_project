@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from main_app import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('student-page/', views.student_page, name='student_page'),
@@ -30,3 +32,4 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
 ]
 
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
