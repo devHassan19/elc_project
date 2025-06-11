@@ -251,6 +251,50 @@ input[type="checkbox"].checkbox {
   color: #0056b3;
 }
 
+.terms-section {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: left; /* Align text to the left */
+  font-size: 18px; /* Increase font size */
+}
+
+.terms-section a {
+  display: block; /* Display as block for full-width */
+  margin-bottom: 15px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.terms-section a:hover {
+  text-decoration: underline;
+}
+
+.terms-section div {
+  display: flex;
+  align-items: center; /* Align checkbox and label text vertically */
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center; /* Align checkbox and label text vertically */
+}
+
+.terms-section input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  cursor: pointer;/* Adjust size if needed */
+}
+
+.terms-section label {
+  font-size: 18px; /* Increase label font size */
+  color: #333;
+}
+
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
