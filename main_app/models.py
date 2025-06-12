@@ -16,12 +16,12 @@ class Subject(models.Model):
     ]
 
     name = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=3)
     image = CloudinaryField('image')
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    advance_payment = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    advance_payment = models.DecimalField(max_digits=10, decimal_places=3, default=0.00)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)  # Link to Category
     state = models.CharField(max_length=10, choices=STATE_CHOICES, default='Draft')  # New state field
 
