@@ -94,7 +94,7 @@ h2 {
 h3 {
   font-size: 1.2rem;
   text-align: center;
-  color: #8e6500
+  color: #6b4f08
   ;
 }
 
@@ -254,6 +254,7 @@ input[type="checkbox"].checkbox {
 
 .terms-section {
   margin-top: 20px;
+  margin-bottom: 20px;
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -321,7 +322,11 @@ input[type="checkbox"].checkbox {
     font-size: 1.8rem;
   }
 
-  h3, h4, h5 {
+  h3 {
+    font-size: 1.7rem;
+  }
+
+  h4, h5 {
     font-size: 1.5rem;
   }
 
