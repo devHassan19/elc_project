@@ -11,7 +11,7 @@
     <nav>
       <img src="{% static 'images/logo-horizantal.png' %}" alt="Elc logo" />
       <ul>
-        <li id="login-item"><a href="{% url 'login' %}">Log in</a></li>
+        {% comment %} <li id="login-item"><a href="{% url 'login' %}">Log in</a></li> {% endcomment %}
       </ul>
     </nav>
   </header>
@@ -82,7 +82,7 @@
                         {% endif %}
                         <div class="subject-details">
                           <h3>{{ subject.name }}</h3>
-                          <p>Price + VAT: {{ subject.price }}BD</p>
+                          <p>Price + VAT 10%: {{ subject.price }}BD</p>
                           <p>Advance: {{ subject.advance_payment }}BD</p>
                         </div>
                       </div>
@@ -98,7 +98,7 @@
             <div class="checkbox-container">
                 <label for="termsCheckbox" class="checkbox-label">
                     <input type="checkbox" id="termsCheckbox" required>
-                    I acknowledge that I have read the Terms and Conditions - أقر بأنني قرأت الشروط والأحكام
+                    I acknowledge that I have read the Terms and Conditions and I agree to them - أقر بأنني قرأت الشروط والأحكام واوفق عليها
                 </label>
             </div>
         </div>

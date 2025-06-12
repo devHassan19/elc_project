@@ -94,7 +94,8 @@ h2 {
 h3 {
   font-size: 1.2rem;
   text-align: center;
-  color: #edb82d;
+  color: #8e6500
+  ;
 }
 
 h5 {
@@ -332,6 +333,7 @@ input[type="checkbox"].checkbox {
   .modal {
     width: 90%;
   }
+  
 }
 
 @media (max-width: 768px) {

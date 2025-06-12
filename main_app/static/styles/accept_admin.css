@@ -157,13 +157,13 @@ label {
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   table, thead, tbody, th, td, tr {
     display: block;
   }
   
   th {
-    display: none; /* Hide headers on small screens */
+    display: none; 
   }
 
   tr {
@@ -177,7 +177,7 @@ label {
   }
 
   td::before {
-    content: attr(data-label); /* Use data-label for responsive display */
+    content: attr(data-label); 
     position: absolute;
     left: 10px;
     width: 45%;
@@ -185,4 +185,17 @@ label {
     white-space: nowrap;
     text-align: left;
   }
+} */
+
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
 }
+
