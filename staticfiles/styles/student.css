@@ -82,9 +82,13 @@ body {
   margin: auto;
 }
 
-h2, h3, h4, h5 {
+h2, h4, h5 {
   margin: 1rem 0;
 }
+
+/* h2, h3, h4, h5 {
+  margin: 1rem 0;
+} */
 
 h2 {
   font-size: 2.25rem;
@@ -94,7 +98,8 @@ h2 {
 h3 {
   font-size: 1.2rem;
   text-align: center;
-  color: #edb82d;
+  color: #6b4f08
+  ;
 }
 
 h5 {
@@ -253,6 +258,7 @@ input[type="checkbox"].checkbox {
 
 .terms-section {
   margin-top: 20px;
+  margin-bottom: 20px;
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -295,6 +301,7 @@ input[type="checkbox"].checkbox {
   color: #333;
 }
 
+
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
@@ -319,7 +326,11 @@ input[type="checkbox"].checkbox {
     font-size: 1.8rem;
   }
 
-  h3, h4, h5 {
+  h3 {
+    font-size: 1.7rem;
+  }
+
+  h4, h5 {
     font-size: 1.5rem;
   }
 
@@ -331,22 +342,39 @@ input[type="checkbox"].checkbox {
   .modal {
     width: 90%;
   }
+  
 }
 
-@media (max-width: 480px) {
-  nav img {
-    width: 200px;
+@media (max-width: 768px) {
+  .form-container {
+    flex-direction: column; /* جعل العناصر تتكدس عمودياً */
+    width: 100%; /* عرض كامل */
+    height: 100vh; /* ملء ارتفاع الشاشة */
   }
 
-  h2 {
-    font-size: 1.5rem;
+  .input-section {
+    width: 100%; /* عرض كامل */
+    padding: 10px; /* إضافة padding */
+    flex-grow: 1; /* اجعلها تأخذ المساحة المتبقية */
   }
 
-  h3, h4, h5 {
-    font-size: 1.2rem;
+  .subject-section {
+    width: 100%; /* عرض كامل */
+    max-height: none; /* إزالة الحد الأقصى للطول */
+    padding: 10px; /* إضافة padding */
+    flex-grow: 1; /* اجعلها تأخذ المساحة المتبقية */
+    overflow-y: auto; /* السماح بالتمرير إذا لزم الأمر */
   }
 
   input {
-    width: 90%;
+    width: 90%; /* عرض أكبر للحقل */
+    font-size: 1.2rem; /* حجم خط أكبر */
+    padding: 0.6rem; /* زيادة padding */
+  }
+
+  button {
+    width: 100%; /* عرض كامل */
+    padding: 1.2rem; /* زيادة padding */
+    font-size: 1.2rem; /* حجم خط أكبر */
   }
 }
