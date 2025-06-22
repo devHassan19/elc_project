@@ -27,6 +27,17 @@
   </header>
 
 <h2>Student Requests</h2>
+<div class="search-bar">
+  <form method="GET" action="{% url 'admin_page' %}">
+    <select name="field">
+      <option value="student_name" {% if query_field == 'student_name' %}selected{% endif %}>Student Name</option>
+      <option value="phone_number" {% if query_field == 'phone_number' %}selected{% endif %}>Phone Number</option>
+    </select>
+    <input type="text" name="search" value="{{ query }}" placeholder="Enter search value">
+    <button type="submit">Search</button>
+  </form>
+</div>
+
 
 <table>
   <thead>

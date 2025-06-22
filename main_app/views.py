@@ -380,6 +380,7 @@ def export_selected_fields_excel(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def admin_page(request):
+    # Handling POST actions for approving/rejecting requests
     if request.method == 'POST':
         action = request.POST.get('action')
         request_id = request.POST.get('request_id')
@@ -394,14 +395,58 @@ def admin_page(request):
         
         student_request.save()
 
+    # Handle search functionality
+    query = request.GET.get('search', '')
+    query_field = request.GET.get('field', 'student_name')
+
     # Fetch all requests, ordered by creation date
-    requests = StudentRequest.objects.all().order_by('-created_at')
-    
+    requests = StudentRequest.objects.all()
+
+    # Filtering based on search criteria
+    if query:
+        if query_field == 'student_name':
+            requests = requests.filter(student_name__icontains=query)
+        elif query_field == 'phone_number':
+            requests = requests.filter(phone_number__icontains=query)  # Use phone_number directly
+
+    # Paginate the filtered requests
     paginator = Paginator(requests, 30)  # Show 30 requests per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'accounts/admin_page.html', {'requests': requests, 'page_obj': page_obj})
+    return render(request, 'accounts/admin_page.html', {
+        'requests': requests,
+        'page_obj': page_obj,
+        'query': query,
+        'query_field': query_field,
+    })
+    
+
+
+
+# def admin_page(request):
+#     if request.method == 'POST':
+#         action = request.POST.get('action')
+#         request_id = request.POST.get('request_id')
+#         student_request = get_object_or_404(StudentRequest, id=request_id)
+        
+#         if action == 'approve':
+#             student_request.status = 'Approved'
+#             messages.success(request, f'Request for {student_request.student_name} approved.')
+#         elif action == 'reject':
+#             student_request.status = 'Rejected'
+#             messages.error(request, f'Request for {student_request.student_name} rejected.')
+        
+#         student_request.save()
+
+#     # Fetch all requests, ordered by creation date
+#     requests = StudentRequest.objects.all().order_by('-created_at')
+    
+#     paginator = Paginator(requests, 30)  # Show 30 requests per page
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+    
+#     return render(request, 'accounts/admin_page.html', {'requests': requests, 'page_obj': page_obj})
 
 
 def logout_view(request):
