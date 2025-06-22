@@ -97,6 +97,28 @@
   </tbody>
 </table>
 
+{% if messages %}
+<div class="message-window">
+  <div class="message-content">
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+  <button class="close-message" onclick="this.parentElement.style.display='none'">✖ Close</button>
+</div>
+{% endif %}
+{% if messages %}
+<div class="modal message-window">
+<div class="message-content">
+  {% for message in messages %}
+    <p>{{ message }}</p>
+  {% endfor %}
+</div>
+<button class="close-message" onclick="this.parentElement.style.display='none'">✖ Close</button>
+</div>
+{% endif %}
+
+
 <div class="pagination">
   <span class="step-links">
     {% if page_obj.has_previous %}

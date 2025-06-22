@@ -293,7 +293,7 @@ def accept_admin(request):
                 student_request = get_object_or_404(StudentRequest, id=request_id)
                 student_request.second_payment = payment_value
                 student_request.save()
-
+                messages.success(request, 'State Update successfully!') 
         # Reset unchecked items to False
         for request_id in accepted_requests.values_list('id', flat=True):
             if f'first_payment_{request_id}' not in request.POST:
@@ -304,6 +304,7 @@ def accept_admin(request):
                 student_request = get_object_or_404(StudentRequest, id=request_id)
                 student_request.second_payment = False
                 student_request.save()
+                messages.success(request, 'State Update successfully!') 
 
         # Re-fetch accepted requests with the same filters and sorting
         accepted_requests = StudentRequest.objects.filter(status='Approved')
