@@ -124,17 +124,6 @@
     <button class="close-message" onclick="this.parentElement.style.display='none'">✖ Close</button>
   </div>
 {% endif %}
-{% if messages %}
-<div class="modal message-window">
-  <div class="message-content">
-    {% for message in messages %}
-      <p>{{ message }}</p>
-    {% endfor %}
-  </div>
-  <button class="close-message" onclick="this.parentElement.style.display='none'">✖ Close</button>
-</div>
-{% endif %}
-
 
   <h3>تصدير جميع البيانات:</h3>
   <div class="export-bar">
