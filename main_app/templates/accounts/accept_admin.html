@@ -114,17 +114,7 @@
     </span>
   </div>
 
-  {% if messages %}
-  <div class="message-window">
-    <div class="message-content">
-      {% for message in messages %}
-        <p>{{ message }}</p>
-      {% endfor %}
-    </div>
-    <button class="close-message" onclick="this.parentElement.style.display='none'">✖ Close</button>
-  </div>
-{% endif %}
-
+  
   <h3>تصدير جميع البيانات:</h3>
   <div class="export-bar">
     <form id="exportForm" method="POST" action="{% url 'export_selected_fields_excel' %}">
@@ -133,4 +123,4 @@
     </form>
   </div>
 </body>
-</html> 
+</html>
