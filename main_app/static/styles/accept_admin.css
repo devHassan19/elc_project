@@ -157,13 +157,13 @@ label {
 }
 
 /* Responsive Design */
-/* @media (max-width: 600px) {
+@media (max-width: 600px) {
   table, thead, tbody, th, td, tr {
     display: block;
   }
   
   th {
-    display: none; 
+    display: none; /* Hide headers on small screens */
   }
 
   tr {
@@ -177,7 +177,7 @@ label {
   }
 
   td::before {
-    content: attr(data-label); 
+    content: attr(data-label); /* Use data-label for responsive display */
     position: absolute;
     left: 10px;
     width: 45%;
@@ -185,9 +185,15 @@ label {
     white-space: nowrap;
     text-align: left;
   }
-} */
+}
+
+
 
 @media (max-width: 600px) {
+  header {
+    padding: 15px 20px; /* Reduce padding for smaller screens */
+  }
+
   nav {
     flex-direction: column;
     align-items: flex-start;
@@ -196,6 +202,56 @@ label {
   nav ul {
     flex-direction: column;
     gap: 15px;
+    width: 100%; /* Make the menu take full width */
+  }
+
+  nav ul li a {
+    font-size: 18px; /* Smaller font size for mobile */
+    padding: 10px; /* Adjust padding */
+  }
+
+  h2 {
+    font-size: 1.5em; /* Smaller heading font size */
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block; /* Make table items block for stacking */
+  }
+
+  th {
+    display: none; /* Hide headers on small screens */
+  }
+
+  tr {
+    margin-bottom: 15px;
+  }
+
+  td {
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td::before {
+    content: attr(data-label); /* Use data-label for responsive display */
+    position: absolute;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .pagination {
+    flex-direction: column; /* Stack pagination items vertically */
+  }
+
+  .pagination a {
+    margin: 5px 0; /* Adjust margins for mobile */
+  }
+
+  .search-bar {
+    flex-direction: column; /* Stack search bar elements vertically */
+    gap: 10px; /* Space between elements */
   }
 }
-
