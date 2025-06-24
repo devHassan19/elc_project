@@ -292,14 +292,14 @@ def accept_admin(request):
                 student_request = get_object_or_404(StudentRequest, id=request_id)
                 student_request.first_payment = payment_value
                 student_request.save()
+                messages.success(request, 'State Update successfully!') 
             elif key.startswith('second_payment_'):
                 request_id = key.split('_')[2]
                 payment_value = request.POST.get(key) == 'on'
                 student_request = get_object_or_404(StudentRequest, id=request_id)
                 student_request.second_payment = payment_value
                 student_request.save()
-
-        messages.success(request, 'تم تحديث حالات الدفع بنجاح ✅')
+                messages.success(request, 'State Update successfully!') 
 
     return render(request, 'accounts/accept_admin.html', {
         'page_obj': page_obj,  # Pass the paginated object
@@ -380,10 +380,10 @@ def admin_page(request):
             requests = requests.filter(phone_number__icontains=query)  # Use phone_number directly
 
     # Paginate the filtered requests
-    paginator = Paginator(requests, 30)  # Show 30 requests per page
+    paginator = Paginator(accepted_requests, 30)  # Show 30 requests per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     return render(request, 'accounts/admin_page.html', {
         'requests': requests,
         'page_obj': page_obj,
