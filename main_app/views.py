@@ -380,10 +380,10 @@ def admin_page(request):
             requests = requests.filter(phone_number__icontains=query)  # Use phone_number directly
 
     # Paginate the filtered requests
-    paginator = Paginator(accepted_requests, 30)  # Show 30 requests per page
+    paginator = Paginator(requests, 30)  # Show 30 requests per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
+    
     return render(request, 'accounts/admin_page.html', {
         'requests': requests,
         'page_obj': page_obj,
