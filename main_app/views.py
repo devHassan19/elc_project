@@ -244,6 +244,107 @@ def submit_request(request):
 #         'second_payment': second_payment
 #     })
 
+# def accept_admin(request):
+#     query = request.GET.get('search', '')
+#     query_field = request.GET.get('field', 'student_name')
+#     first_payment = request.GET.get('first_payment')
+#     second_payment = request.GET.get('second_payment')
+
+#     # Fetch accepted requests
+#     accepted_requests = StudentRequest.objects.filter(status='Approved')
+
+#     # Apply search filters
+#     if query:
+#         if query_field == 'student_name':
+#             accepted_requests = accepted_requests.filter(student_name__icontains=query)
+#         elif query_field == 'univ_id':
+#             accepted_requests = accepted_requests.filter(univ_id__icontains=query)
+#         elif query_field == 'status':
+#             accepted_requests = accepted_requests.filter(status__icontains=query)
+#         elif query_field == 'phone_number':  # Added phone number filter
+#             accepted_requests = accepted_requests.filter(phone_number__icontains=query)  # New line for filtering
+
+#     # Filter by payment status
+#     if first_payment and not second_payment:
+#         accepted_requests = accepted_requests.filter(first_payment=False)
+#     elif second_payment and not first_payment:
+#         accepted_requests = accepted_requests.filter(second_payment=False)
+
+#     # Maintain the original ordering
+#     accepted_requests = accepted_requests.order_by('-created_at')  # Adjust sorting as needed
+
+#     # Pagination
+#     paginator = Paginator(accepted_requests, 30)  # Show 30 requests per page
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+
+#     if request.method == 'POST':
+#         if 'export_excel' in request.POST:
+#             selected_fields = request.POST.getlist('fields')
+#             request.session['export_fields'] = selected_fields
+#             return redirect(reverse('export_selected_fields_excel'))
+
+#         # Update payment statuses
+#         for key in request.POST:
+#             if key.startswith('first_payment_'):
+#                 request_id = key.split('_')[2]
+#                 payment_value = request.POST.get(key) == 'on'
+#                 student_request = get_object_or_404(StudentRequest, id=request_id)
+#                 student_request.first_payment = payment_value
+#                 student_request.save()
+#             elif key.startswith('second_payment_'):
+#                 request_id = key.split('_')[2]
+#                 payment_value = request.POST.get(key) == 'on'
+#                 student_request = get_object_or_404(StudentRequest, id=request_id)
+#                 student_request.second_payment = payment_value
+#                 student_request.save()
+
+#         # Reset unchecked items to False
+#         for request_id in accepted_requests.values_list('id', flat=True):
+#             if f'first_payment_{request_id}' not in request.POST:
+#                 student_request = get_object_or_404(StudentRequest, id=request_id)
+#                 student_request.first_payment = False
+#                 student_request.save()
+#             if f'second_payment_{request_id}' not in request.POST:
+#                 student_request = get_object_or_404(StudentRequest, id=request_id)
+#                 student_request.second_payment = False
+#                 student_request.save()
+
+#         # Re-fetch accepted requests with the same filters and sorting
+#         accepted_requests = StudentRequest.objects.filter(status='Approved')
+
+#         # Reapply search filters
+#         if query:
+#             if query_field == 'student_name':
+#                 accepted_requests = accepted_requests.filter(student_name__icontains=query)
+#             elif query_field == 'univ_id':
+#                 accepted_requests = accepted_requests.filter(univ_id__icontains=query)
+#             elif query_field == 'status':
+#                 accepted_requests = accepted_requests.filter(status__icontains=query)
+#             elif query_field == 'phone_number':  # Added for reapplying
+#                 accepted_requests = accepted_requests.filter(phone_number__icontains=query)  # New line for filtering
+
+#         # Reapply payment filters
+#         if first_payment and not second_payment:
+#             accepted_requests = accepted_requests.filter(first_payment=False)
+#         elif second_payment and not first_payment:
+#             accepted_requests = accepted_requests.filter(second_payment=False)
+
+#         # Maintain the same sort order
+#         accepted_requests = accepted_requests.order_by('-created_at')
+
+#         paginator = Paginator(accepted_requests, 30)
+#         page_number = request.GET.get('page', 1)  # Default to the first page if not set
+#         page_obj = paginator.get_page(page_number)
+
+#     return render(request, 'accounts/accept_admin.html', {
+#         'page_obj': page_obj,  # Pass the paginated object
+#         'query': query,
+#         'query_field': query_field,
+#         'first_payment': first_payment,
+#         'second_payment': second_payment
+#     })
+    
 def accept_admin(request):
     query = request.GET.get('search', '')
     query_field = request.GET.get('field', 'student_name')
@@ -284,7 +385,7 @@ def accept_admin(request):
             request.session['export_fields'] = selected_fields
             return redirect(reverse('export_selected_fields_excel'))
 
-        # Update payment statuses
+        # Update only submitted checkboxes
         for key in request.POST:
             if key.startswith('first_payment_'):
                 request_id = key.split('_')[2]
@@ -299,43 +400,7 @@ def accept_admin(request):
                 student_request.second_payment = payment_value
                 student_request.save()
 
-        # Reset unchecked items to False
-        for request_id in accepted_requests.values_list('id', flat=True):
-            if f'first_payment_{request_id}' not in request.POST:
-                student_request = get_object_or_404(StudentRequest, id=request_id)
-                student_request.first_payment = False
-                student_request.save()
-            if f'second_payment_{request_id}' not in request.POST:
-                student_request = get_object_or_404(StudentRequest, id=request_id)
-                student_request.second_payment = False
-                student_request.save()
-
-        # Re-fetch accepted requests with the same filters and sorting
-        accepted_requests = StudentRequest.objects.filter(status='Approved')
-
-        # Reapply search filters
-        if query:
-            if query_field == 'student_name':
-                accepted_requests = accepted_requests.filter(student_name__icontains=query)
-            elif query_field == 'univ_id':
-                accepted_requests = accepted_requests.filter(univ_id__icontains=query)
-            elif query_field == 'status':
-                accepted_requests = accepted_requests.filter(status__icontains=query)
-            elif query_field == 'phone_number':  # Added for reapplying
-                accepted_requests = accepted_requests.filter(phone_number__icontains=query)  # New line for filtering
-
-        # Reapply payment filters
-        if first_payment and not second_payment:
-            accepted_requests = accepted_requests.filter(first_payment=False)
-        elif second_payment and not first_payment:
-            accepted_requests = accepted_requests.filter(second_payment=False)
-
-        # Maintain the same sort order
-        accepted_requests = accepted_requests.order_by('-created_at')
-
-        paginator = Paginator(accepted_requests, 30)
-        page_number = request.GET.get('page', 1)  # Default to the first page if not set
-        page_obj = paginator.get_page(page_number)
+        messages.success(request, 'تم تحديث حالات الدفع بنجاح ✅')
 
     return render(request, 'accounts/accept_admin.html', {
         'page_obj': page_obj,  # Pass the paginated object
@@ -344,7 +409,8 @@ def accept_admin(request):
         'first_payment': first_payment,
         'second_payment': second_payment
     })
-    
+
+
 def export_selected_fields_excel(request):
     # Define all fields to be exported
     all_fields = [
